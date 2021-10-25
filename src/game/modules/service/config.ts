@@ -1,19 +1,19 @@
 import DefaultScene from "../scenes/Default";
 
-const width = 1280;
-
 export const config = {
   type: Phaser.AUTO,
   parent: "game-box",
-  width: width,
-  height: width * 0.5625,
+  height: 720,
+  width: 1280,
   scene: [DefaultScene],
   backgroundColor: 0x14003b,
-  // transparent: true
+  // transparent: true,
   physics: {
-    default: "arcade",
-    arcade: {
-      // debug: true,
+    default: "matter",
+    matter: {
+      gravity: { y: 1 },
+      enableSleep: false,
+      debug: true,
     },
   },
 };
