@@ -16,4 +16,15 @@ export const gameResourcesData: PreloadTypes[] = [
     method: "tilemapTiledJSON",
     data: [["map", assets + "levels/default_level.json"]],
   },
+
+  {
+    method: "atlas",
+    data: [
+      [
+        "teleport",
+        assets + "effects/teleport.png",
+        assets + "effects/teleport_atlas.json",
+      ],
+    ],
+  },
 ];

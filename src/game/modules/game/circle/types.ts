@@ -31,3 +31,8 @@ export interface PlayerController {
     jump: number;
   };
 }
+
+export interface PlayerCoordinates {
+  x: number;
+  y: number;
+}

@@ -1,0 +1,138 @@
+{
+    "frames": [
+        {
+            "filename": "attack4_0",
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 192,
+                "h": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "attack4_1",
+            "frame": {
+                "x": 192,
+                "y": 0,
+                "w": 192,
+                "h": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "attack4_2",
+            "frame": {
+                "x": 384,
+                "y": 0,
+                "w": 192,
+                "h": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "attack4_3",
+            "frame": {
+                "x": 576,
+                "y": 0,
+                "w": 192,
+                "h": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "attack4_4",
+            "frame": {
+                "x": 768,
+                "y": 0,
+                "w": 192,
+                "h": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "attack4_5",
+            "frame": {
+                "x": 0,
+                "y": 192,
+                "w": 192,
+                "h": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "attack4_6",
+            "frame": {
+                "x": 192,
+                "y": 192,
+                "w": 192,
+                "h": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "attack4_7",
+            "frame": {
+                "x": 384,
+                "y": 192,
+                "w": 192,
+                "h": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "attack4_8",
+            "frame": {
+                "x": 576,
+                "y": 192,
+                "w": 192,
+                "h": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "attack4_9",
+            "frame": {
+                "x": 768,
+                "y": 192,
+                "w": 192,
+                "h": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Phaser3",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

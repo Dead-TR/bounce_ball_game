@@ -1,6 +1,6 @@
 import { Scene } from "phaser";
 import { preloadData } from "../game/circle/preload";
-import { PlayerController } from "../game/circle/types";
+import { PlayerController, PlayerCoordinates } from "../game/circle/types";
 import { gameResourcesData } from "./assets/preloadData";
 import { SmoothedHorionztalControl } from "./utils/SmothHorizontalControl";
 
@@ -8,11 +8,23 @@ export default class DefaultScene extends Scene {
   playerController: PlayerController | null = null;
   cursors: Phaser.Types.Input.Keyboard.CursorKeys | null = null;
   smoothedControls: typeof SmoothedHorionztalControl | null = null;
+  coordinates: PlayerCoordinates = {
+    x: 0,
+    y: 0,
+  };
+  camera: Phaser.Cameras.Scene2D.Camera | null = null;
 
   preload() {
     preloadData.call(this, gameResourcesData);
   }
   create() {
+    this.anims.create({
+      key: "teleportAnimation",
+      frames: "teleport",
+      frameRate: 20,
+      repeat: 0,
+    });
+
     const map = this.make.tilemap({ key: "map" });
     const tileset = map.addTilesetImage("platforms32x32", "platforms32x32");
     const layer = map.createLayer(0, tileset, 0, 0);
@@ -123,8 +135,9 @@ export default class DefaultScene extends Scene {
         .setFixedRotation() // заборонити оберти
         .setPosition(100, 100);
 
-      const cam = this.cameras.main; // камера
-      cam.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+      this.camera = this.cameras.main; // камера
+      this.camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+      this.smoothMoveCameraTowards(playerController.matterBody);
 
       this.matter.world.on("beforeupdate", function () {
         // до оновлення -- задає дефолтні значення
@@ -172,6 +185,26 @@ export default class DefaultScene extends Scene {
           playerController.numTouching.left > 0 ? true : false;
         playerController.blocked.bottom =
           playerController.numTouching.bottom > 0 ? true : false;
+      });
+
+      this.input.keyboard.on("keydown-ENTER", () => {
+        this.coordinates = {
+          x: playerController.matterBody.x,
+          y: playerController.matterBody.y,
+        };
+      });
+
+      this.input.keyboard.on("keydown-SPACE", () => {
+        const { x, y } = this.coordinates;
+        playerController.matterBody.x = x;
+        playerController.matterBody.y = y;
+
+        const sprite = this.add
+          .sprite(x, y, "teleport")
+          .play("teleportAnimation")
+          .on("complete", () => {
+            sprite.destroy();
+          });
       });
     }
   }
@@ -247,6 +280,25 @@ export default class DefaultScene extends Scene {
       } else if (matterBody.body.velocity.x < 0) {
         matterSprite.setAngle(matterSprite.angle - 10);
       }
+
+      this.smoothMoveCameraTowards(matterBody, 0.9);
+    }
+  }
+
+  smoothMoveCameraTowards(
+    target: Phaser.Physics.Matter.Sprite,
+    smoothFactor?: number
+  ) {
+    if (this.camera) {
+      if (smoothFactor === undefined) {
+        smoothFactor = 0;
+      }
+      this.camera.scrollX =
+        smoothFactor * this.camera.scrollX +
+        (1 - smoothFactor) * (target.x - this.camera.width * 0.5);
+      this.camera.scrollY =
+        smoothFactor * this.camera.scrollY +
+        (1 - smoothFactor) * (target.y - this.camera.height * 0.5);
     }
   }
 }
