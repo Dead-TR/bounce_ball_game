@@ -1,6 +1,6 @@
 import DefaultScene from "../scenes/Default";
 
-export const config = {
+export const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   parent: "game-box",
   height: 720,
@@ -9,10 +9,9 @@ export const config = {
   backgroundColor: 0x14003b,
   // transparent: true,
   physics: {
-    default: "matter",
-    matter: {
-      gravity: { y: 1 },
-      enableSleep: false,
+    default: "arcade",
+    arcade: {
+      gravity: { y: 300 },
       debug: true,
     },
   },

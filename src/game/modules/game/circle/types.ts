@@ -3,36 +3,14 @@ export interface PreloadTypes {
   data: any[];
 }
 
-export interface PlayerController {
-  matterBody: Phaser.Physics.Matter.Sprite;
-  matterSprite: Phaser.GameObjects.Sprite;
-  blocked: {
-    left: boolean;
-    right: boolean;
-    bottom: boolean;
-  };
-  numTouching: {
-    left: number;
-    right: number;
-    bottom: number;
-  };
-  sensors: {
-    bottom: null;
-    left: null;
-    right: null;
-  };
-  time: {
-    leftDown: number;
-    rightDown: number;
-  };
-  lastJumpedAt: number;
-  speed: {
-    run: number;
-    jump: number;
-  };
+interface BlockMoveKey {
+  blocked: boolean;
+  time: number;
 }
 
-export interface PlayerCoordinates {
-  x: number;
-  y: number;
+export interface PlayerParamsConfig {
+  blockMove: {
+    left: BlockMoveKey;
+    right: BlockMoveKey;
+  };
 }
