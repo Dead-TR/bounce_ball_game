@@ -1,3 +1,4 @@
+import { settingsConfig } from "../game/settingsConfig";
 import DefaultScene from "../scenes/Default";
 
 export const config: Phaser.Types.Core.GameConfig = {
@@ -11,8 +12,8 @@ export const config: Phaser.Types.Core.GameConfig = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 300 },
-      debug: false,
+      gravity: { y: settingsConfig.gravity },
+      debug: true,
     },
   },
 };
