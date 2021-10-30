@@ -7,8 +7,8 @@ export const gameResourcesData: PreloadTypes[] = [
     method: "image",
     data: [
       ["platforms32x32", assets + "platforms/platforms32x32.png"],
-      ["playerBody", assets + "player/body.png"],
-      ["playerSprite", assets + "player/ball.png"],
+      ["playerSprite", assets + "player/body.png"],
+      ["playerBody", assets + "player/ball.png"],
     ],
   },
 

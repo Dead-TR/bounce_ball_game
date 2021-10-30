@@ -6,6 +6,11 @@ import { gameResourcesData } from "./assets/preloadData";
 export default class DefaultScene extends Scene {
   cursors: Phaser.Types.Input.Keyboard.CursorKeys | null = null;
   player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody | null = null;
+  playerBody: Phaser.GameObjects.Sprite | null = null;
+  coordinates = {
+    x: 0,
+    y: 0,
+  };
   playerParamsConfig: PlayerParamsConfig = {
     blockMove: {
       left: {
@@ -38,208 +43,45 @@ export default class DefaultScene extends Scene {
 
     layer.setCollisionByExclusion([-1], true);
 
-    this.player = this.physics.add.sprite(100, 100, "playerSprite");
+    this.player = this.physics.add.sprite(100, 100, "playerSprite").setAlpha(0);
+    this.playerBody = this.add.sprite(
+      this.player.x,
+      this.player.y,
+      "playerBody"
+    );
     this.player.setBounce(0).setCircle(this.player.width / 2);
 
     this.physics.add.collider(this.player, layer); // створити колізію між ГГ і ігровим оточенням
-    // this.matter.world.convertTilemapLayer(layer);
     this.player.body.setCollideWorldBounds(true);
     this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-    // this.matter.world.setBounds(
-    //   0,
-    //   0,
-    //   map.widthInPixels,
-    //   map.heightInPixels,
-    //   32
-    // );
-    // this.matter.world.createDebugGraphic();
-
     this.cursors = this.input.keyboard.createCursorKeys();
-    // this.playerController = {
-    //   matterBody: this.matter.add.sprite(100, 100, "playerBody", 4, {
-    //     mass: 0.1,
-    //     inverseMass: 0.5,
-    //   }),
-    //   matterSprite: this.add.sprite(100, 100, "playerSprite", 4).setAlpha(0),
-
-    //   blocked: {
-    //     left: false,
-    //     right: false,
-    //     bottom: false,
-    //   },
-    //   numTouching: {
-    //     left: 0,
-    //     right: 0,
-    //     bottom: 0,
-    //   },
-    //   sensors: {
-    //     bottom: null,
-    //     left: null,
-    //     right: null,
-    //   },
-    //   time: {
-    //     leftDown: 0,
-    //     rightDown: 0,
-    //   },
-    //   lastJumpedAt: 0,
-    //   speed: {
-    //     run: 10,
-    //     jump: 10,
-    //   },
-    // };
-    // const playerController = this.playerController;
-
-    // if (playerController) {
-    //   this.smoothedControls = new SmoothedHorionztalControl(
-    //     0.0005,
-    //     playerController
-    //   );
-
-    //   playerController.matterBody.setAlpha(0);
-
-    //   //@ts-ignore
-    //   var M = Phaser.Physics.Matter.Matter;
-    //   var w = playerController.matterBody.width;
-    //   var h = playerController.matterBody.height;
-
-    //   var sx = w / 2; // Розміщення фізики по центрі спрайту
-    //   var sy = h / 2;
-
-    //   // The player's body is going to be a compound body.
-    //   var playerBody = M.Bodies.rectangle(sx, sy, w, h, {
-    //     //створення фізики тіла для ГГ
-    //     chamfer: {
-    //       // налаштування основного тіла
-    //       radius: sy, //радіус
-    //       // quality: 1, // вершини. не дуже розумію на що впливає
-    //       // qualityMin: 1,
-    //       // qualityMax: 2,
-    //     },
-    //   });
-    //   playerController.sensors.bottom = M.Bodies.rectangle(sx, h, sx, 5, {
-    //     isSensor: true, // вказує, що тіло є сенсором: бачить зіткнення, але не реагує на них
-    //   });
-    //   playerController.sensors.left = M.Bodies.rectangle(
-    //     sx - w * 0.45,
-    //     sy,
-    //     5,
-    //     h * 0.25,
-    //     { isSensor: true }
-    //   );
-    //   playerController.sensors.right = M.Bodies.rectangle(
-    //     sx + w * 0.45,
-    //     sy,
-    //     5,
-    //     h * 0.25,
-    //     { isSensor: true }
-    //   );
-    //   var compoundBody = M.Body.create({
-    //     // всі три тіла об'єднуютьяс
-    //     parts: [
-    //       playerBody,
-    //       playerController.sensors.bottom,
-    //       playerController.sensors.left,
-    //       playerController.sensors.right,
-    //     ],
-    //     friction: 0.01, //тертя
-    //     restitution: 0.05, // відпружинення
-    //   });
-
-    //   playerController.matterBody
-    //     .setExistingBody(compoundBody)
-    //     //@ts-ignore
-    //     .setFixedRotation() // заборонити оберти
-    //     .setPosition(100, 100);
 
     this.camera = this.cameras.main; // камера
     this.camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.smoothMoveCameraTowards(this.player);
 
-    //   this.matter.world.on("beforeupdate", function () {
-    //     // до оновлення -- задає дефолтні значення
-    //     playerController.numTouching.left = 0;
-    //     playerController.numTouching.right = 0;
-    //     playerController.numTouching.bottom = 0;
-    //   });
-    //   this.matter.world.on("collisionactive", function (event: any) {
-    //     // обробка всіх зіткнень !!! Активного кадру
-    //     //@ts-ignore
-    //     var playerBody = playerController.body;
-    //     var left = playerController.sensors.left;
-    //     var right = playerController.sensors.right;
-    //     var bottom = playerController.sensors.bottom;
+    this.input.keyboard.on("keydown-ENTER", () => {
+      this.coordinates = {
+        x: this.player?.x || 0,
+        y: this.player?.y || 0,
+      };
+    });
 
-    //     for (var i = 0; i < event.pairs.length; i++) {
-    //       var bodyA = event.pairs[i].bodyA;
-    //       var bodyB = event.pairs[i].bodyB;
+    this.input.keyboard.on("keydown-SPACE", () => {
+      const { x, y } = this.coordinates;
+      if (this.player) {
+        this.player.x = x;
+        this.player.y = y;
+      }
 
-    //       if (bodyA === playerBody || bodyB === playerBody) {
-    //         continue;
-    //       } else if (bodyA === bottom || bodyB === bottom) {
-    //         // Standing on any surface counts (e.g. jumping off of a non-static crate).
-    //         playerController.numTouching.bottom += 1;
-    //       } else if (
-    //         (bodyA === left && bodyB.isStatic) ||
-    //         (bodyB === left && bodyA.isStatic)
-    //       ) {
-    //         // Only static objects count since we don't want to be blocked by an object that we
-    //         // can push around.
-    //         playerController.numTouching.left += 1;
-    //       } else if (
-    //         (bodyA === right && bodyB.isStatic) ||
-    //         (bodyB === right && bodyA.isStatic)
-    //       ) {
-    //         playerController.numTouching.right += 1;
-    //       }
-    //     }
-    //   });
-    //   this.matter.world.on("afterupdate", function () {
-    //     // після оновлення
-    //     playerController.blocked.right =
-    //       playerController.numTouching.right > 0 ? true : false;
-    //     playerController.blocked.left =
-    //       playerController.numTouching.left > 0 ? true : false;
-    //     playerController.blocked.bottom =
-    //       playerController.numTouching.bottom > 0 ? true : false;
-    //   });
-
-    //   this.input.keyboard.on("keydown-ENTER", () => {
-    //     this.coordinates = {
-    //       x: playerController.matterBody.x,
-    //       y: playerController.matterBody.y,
-    //     };
-    //   });
-
-    //   this.input.keyboard.on("keydown-SPACE", () => {
-    //     const { x, y } = this.coordinates;
-    //     playerController.matterBody.x = x;
-    //     playerController.matterBody.y = y;
-
-    //     const sprite = this.add
-    //       .sprite(x, y, "teleport")
-    //       .play("teleportAnimation")
-    //       .on("complete", () => {
-    //         sprite.destroy();
-    //       });
-    //   });
-    // }
-
-    // this.input.keyboard.on("keydown-LEFT", () => {
-    //   this.playerParamsConfig.keyDown.left = true;
-    // });
-
-    // this.input.keyboard.on("keydown-RIGHT", () => {
-    //   this.playerParamsConfig.keyDown.right = true;
-    // });
-
-    // this.input.keyboard.on("keyup-LEFT", () => {
-    //   this.playerParamsConfig.keyDown.left = false;
-    // });
-
-    // this.input.keyboard.on("keyup-RIGHT", () => {
-    //   this.playerParamsConfig.keyDown.right = false;
-    // });
+      const sprite = this.add
+        .sprite(x, y, "teleport")
+        .play("teleportAnimation")
+        .on("complete", () => {
+          sprite.destroy();
+        });
+    });
   }
 
   control(delta: number, time: number) {
@@ -346,9 +188,21 @@ export default class DefaultScene extends Scene {
     }
   }
 
+  controlPlayerBody(delta: number) {
+    if (this.player && this.playerBody) {
+      this.playerBody.x = this.player.x;
+      this.playerBody.y = this.player.y;
+
+      if (this.player.body.velocity.x) {
+        this.playerBody.angle += delta * 0.003 * this.player.body.velocity.x;
+      }
+    }
+  }
+
   update(time: number, delta: number) {
     this.control(delta, time);
     this.resetBlockMove(time);
+    this.controlPlayerBody(delta);
     // const matterBody = this.playerController?.matterBody;
     // const matterSprite = this.playerController?.matterSprite;
     // if (matterBody && matterSprite && this.playerController) {
