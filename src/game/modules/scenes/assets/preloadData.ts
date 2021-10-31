@@ -9,6 +9,10 @@ export const gameResourcesData: PreloadTypes[] = [
       ["platforms32x32", assets + "platforms/platforms32x32.png"],
       ["playerSprite", assets + "player/body.png"],
       ["playerBody", assets + "player/ball.png"],
+
+      ["dialogCenter", assets + "ui/dialog-2.png"],
+      ["dialogLeft", assets + "ui/dialog-1.png"],
+      ["dialogRight", assets + "ui/dialog-3.png"],
     ],
   },
 

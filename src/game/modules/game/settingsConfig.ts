@@ -13,4 +13,6 @@ export const settingsConfig = {
   playerBounce: 0.2,
 
   playerAcceleration: (delta: number) => delta / 2,
+
+  dialogWrapperMoveTime: 800,
 };

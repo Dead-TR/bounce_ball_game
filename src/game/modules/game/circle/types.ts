@@ -14,3 +14,8 @@ export interface PlayerParamsConfig {
     right: BlockMoveKey;
   };
 }
+
+export interface Tweens {
+  show: Phaser.Tweens.Tween;
+  hide: Phaser.Tweens.Tween;
+}

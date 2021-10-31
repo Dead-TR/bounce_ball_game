@@ -1,35 +1,17 @@
 import { Scene } from "phaser";
 import { preloadData } from "../game/circle/preload";
-import { PlayerParamsConfig } from "../game/circle/types";
 import { gameResourcesData } from "./assets/preloadData";
 import { Player } from "./modules";
+import { Dialog } from "./modules/Dialog";
+import { Extensions } from "./modules/Extensions";
 
 export default class DefaultScene extends Scene {
-  playerClass: Player | null = null;
-
-  cursors: Phaser.Types.Input.Keyboard.CursorKeys | null = null;
-  player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody | null = null;
-  playerBody: Phaser.GameObjects.Sprite | null = null;
-  coordinates = {
-    x: 0,
-    y: 0,
-  };
-  playerParamsConfig: PlayerParamsConfig = {
-    blockMove: {
-      left: {
-        blocked: false,
-        time: 0,
-      },
-      right: {
-        blocked: false,
-        time: 0,
-      },
-    },
-  };
-
-  camera: Phaser.Cameras.Scene2D.Camera | null = null;
+  player: Player | null = null;
+  extensions!: Extensions;
+  dialog: Dialog | null = null;
 
   preload() {
+    this.extensions = new Extensions(this);
     preloadData.call(this, gameResourcesData);
   }
   create() {
@@ -37,10 +19,18 @@ export default class DefaultScene extends Scene {
     const tileset = map.addTilesetImage("platforms32x32", "platforms32x32");
     const world = map.createLayer(0, tileset, 0, 0);
 
-    this.playerClass = new Player(this, map, world);
+    this.player = new Player(this, map, world);
+    this.dialog = new Dialog(this);
+
+    this.input.keyboard.on("keydown-W", () => {
+      this.dialog?.hideDialog();
+    });
+    this.input.keyboard.on("keydown-Q", () => {
+      this.dialog?.showDialog();
+    });
   }
 
   update(time: number, delta: number) {
-    this.playerClass?.update(time, delta);
+    this.player?.update(time, delta);
   }
 }
