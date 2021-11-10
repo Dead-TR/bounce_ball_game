@@ -1,19 +1,39 @@
 import { Scene } from "phaser";
-import { Tweens } from "../../game/circle/types";
+import {
+  ActiveDialog,
+  DialogList,
+  IgnoredDialogs,
+  Tweens,
+} from "../../game/circle/types";
 import { settingsConfig } from "../../game/settingsConfig";
+import { Extensions } from "./Extensions";
 
 export class Dialog {
-  wrapper: Phaser.GameObjects.Container;
+  scene: Scene;
+  extensions: Extensions;
 
+  wrapper: Phaser.GameObjects.Container;
   tweens: Tweens;
 
-  constructor(scene: Scene) {
-    const { width, height } = scene.game.config;
+  activeDialog: ActiveDialog | null = null;
+  sceneDialogs: DialogList;
+  sceneId: number;
 
+  constructor(
+    scene: Scene,
+    dialogs: DialogList,
+    extensions: Extensions,
+    sceneId: number
+  ) {
+    this.sceneId = sceneId;
+    this.sceneDialogs = dialogs;
+    this.scene = scene;
+    this.extensions = extensions;
+
+    const { width, height } = scene.game.config;
     const sceneWidth = Number(width);
 
     const leftBGFrame = scene.add.sprite(0, 0, "dialogLeft").setOrigin(0, 0);
-
     const rightBGFrame = scene.add
       .sprite(sceneWidth, 0, "dialogRight")
       .setOrigin(0, 0);
@@ -21,6 +41,34 @@ export class Dialog {
       rightBGFrame.x - rightBGFrame.width,
       rightBGFrame.y
     );
+    const { buttons } = settingsConfig.dialog;
+
+    const nextButton = scene.add
+      .sprite(
+        sceneWidth - buttons.margin.right,
+        buttons.margin.top,
+        "dialogNextButton"
+      )
+      .setInteractive()
+      .setScrollFactor(0)
+      .setOrigin(1, 0);
+    const skipButton = scene.add
+      .sprite(
+        sceneWidth - buttons.margin.right,
+        buttons.margin.top * 2 + buttons.height,
+        "dialogSkipButton"
+      )
+      .setInteractive()
+      .setScrollFactor(0)
+      .setOrigin(1, 0);
+    // this.extensions.imgFit(nextButton, buttons.width, buttons.height); //fit img to config size
+    // this.extensions.imgFit(skipButton, buttons.width, buttons.height); //fit img to config size
+
+    const { nextDialog, dialogEnd } = this;
+    const nextButtonClick = nextDialog.bind(this);
+    const skipButtonClick = dialogEnd.bind(this, true);
+    nextButton.on("pointerup", nextButtonClick);
+    skipButton.on("pointerup", skipButtonClick);
 
     const centerBG = scene.add
       .tileSprite(
@@ -34,7 +82,7 @@ export class Dialog {
 
     this.wrapper = scene.add
       .container(0, 0)
-      .add([leftBGFrame, rightBGFrame, centerBG])
+      .add([leftBGFrame, rightBGFrame, centerBG, nextButton, skipButton])
       .setScrollFactor(0)
       .setPosition(0, -centerBG.height);
 
@@ -61,11 +109,175 @@ export class Dialog {
     };
   }
 
-  showDialog() {
-    this.tweens.show.play();
+  tweensPlay(tween: Phaser.Tweens.Tween, onComplete?: () => void) {
+    if (onComplete) {
+      tween.once("complete", () => {
+        onComplete && onComplete();
+      });
+    }
+    tween.play();
   }
 
-  hideDialog() {
-    this.tweens.hide.play();
+  showDialog(onComplete?: () => void) {
+    this.tweensPlay(this.tweens.show, onComplete);
+  }
+
+  hideDialog(onComplete?: () => void) {
+    this.tweensPlay(this.tweens.hide, onComplete);
+  }
+
+  createConversation(dialogId: number) {
+    const activeDialog = this.sceneDialogs[dialogId];
+    if (activeDialog) {
+      this.activeDialog = {
+        dialog: activeDialog,
+        replica: 0,
+        id: dialogId,
+        objects: {},
+      };
+
+      const { name, portrait, replica } = activeDialog[0];
+      this.createPortrait(portrait);
+      this.createName(name);
+      this.createText(replica);
+
+      this.showDialog();
+    }
+  }
+
+  createPortrait(imgName: string) {
+    const { height, width, y } = settingsConfig.portraits;
+    const firstFrame = this.wrapper.list[0];
+    const portrait = this.scene.add
+      //@ts-ignore
+      .image(firstFrame.width || 25, y, imgName)
+      .setOrigin(0);
+
+    this.extensions.imgFit(portrait, width, height);
+
+    this.wrapper.add(portrait);
+
+    if (this.activeDialog) {
+      this.activeDialog.objects.portrait = portrait;
+    }
+  }
+
+  createName(name: string) {
+    const { height, width } = settingsConfig.portraits;
+
+    const text = this.scene.make.text({
+      x: 0,
+      y: 0,
+      text: name,
+      origin: { x: 0.5, y: 0 },
+      style: {
+        font: "25px Arial",
+        color: settingsConfig.dialog.colors.names,
+        wordWrap: {
+          width: width,
+          useAdvancedWrap: true,
+        },
+      },
+    });
+
+    text.x = 25 + width / 2;
+    text.y = height + 30;
+
+    this.wrapper.add(text);
+
+    if (this.activeDialog) {
+      this.activeDialog.objects.name = text;
+    }
+  }
+
+  createText(replica: string) {
+    const { y, width: portraitWidth } = settingsConfig.portraits;
+    const { buttons, colors } = settingsConfig.dialog;
+    const textMargin = 50;
+    const text = this.scene.make.text({
+      x: portraitWidth + textMargin,
+      y: y * 2,
+      text: replica,
+      origin: { x: 0, y: 0 },
+      style: {
+        font: "bold 25px Arial",
+        color: colors.text,
+        wordWrap: {
+          width:
+            Number(this.scene.game.config.width) -
+            textMargin * 2 -
+            portraitWidth -
+            buttons.width,
+          useAdvancedWrap: true,
+        },
+      },
+    });
+
+    this.wrapper.add(text);
+
+    if (this.activeDialog) {
+      this.activeDialog.objects.text = text;
+    }
+  }
+
+  clearDialog() {
+    if (this.activeDialog) {
+      const { objects } = this.activeDialog;
+
+      objects.name?.destroy();
+      objects.portrait?.destroy();
+      objects.text?.destroy();
+    }
+  }
+
+  nextDialog() {
+    if (this.activeDialog) {
+      const { dialog, replica } = this.activeDialog;
+      const actualReplicaNumber = replica + 1;
+
+      if (actualReplicaNumber < dialog.length) {
+        const {
+          name,
+          portrait,
+          replica: valueOfReplica,
+        } = dialog[actualReplicaNumber];
+        this.clearDialog();
+
+        this.createPortrait(portrait);
+        this.createName(name);
+        this.createText(valueOfReplica);
+
+        this.activeDialog.replica = actualReplicaNumber;
+      } else {
+        this.dialogEnd();
+      }
+    }
+  }
+
+  dialogEnd(isSkip?: boolean) {
+    if (this.activeDialog) {
+      const { dialog, replica, id: dialogId } = this.activeDialog;
+      const actualReplicaElement = dialog[replica] || dialog[dialog.length - 1];
+      actualReplicaElement.callback && actualReplicaElement.callback();
+      this.closeDialog();
+
+      if (isSkip && (dialogId || dialogId === 0)) {
+        const ignoredDialogs: IgnoredDialogs = JSON.parse(
+          localStorage.getItem("ignoredDialogs") || "[]"
+        );
+        const actualSceneIgnored = ignoredDialogs[this.sceneId] || [];
+        actualSceneIgnored.push(dialogId);
+
+        const newActualIgnored = [...new Set(actualSceneIgnored)];
+        ignoredDialogs[this.sceneId] = newActualIgnored;
+
+        localStorage.setItem("ignoredDialogs", JSON.stringify(ignoredDialogs));
+      }
+    }
+  }
+
+  closeDialog() {
+    const { clearDialog } = this;
+    this.hideDialog(clearDialog.bind(this));
   }
 }

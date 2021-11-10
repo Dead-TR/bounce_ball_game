@@ -2,7 +2,7 @@ import { settingsConfig } from "../game/settingsConfig";
 import DefaultScene from "../scenes/Default";
 
 export const config: Phaser.Types.Core.GameConfig = {
-  type: Phaser.AUTO,
+  type: Phaser.CANVAS,
   parent: "game-box",
   height: 720,
   width: 1280,

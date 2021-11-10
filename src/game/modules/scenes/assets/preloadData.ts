@@ -1,6 +1,9 @@
 import { PreloadTypes } from "../../game/circle/types";
+import { storyConfig } from "../../game/storyConfig";
 
 const assets = "assets/";
+
+const { tal } = storyConfig.characters;
 
 export const gameResourcesData: PreloadTypes[] = [
   {
@@ -13,12 +16,17 @@ export const gameResourcesData: PreloadTypes[] = [
       ["dialogCenter", assets + "ui/dialog-2.png"],
       ["dialogLeft", assets + "ui/dialog-1.png"],
       ["dialogRight", assets + "ui/dialog-3.png"],
+      ["dialogNextButton", assets + "ui/dialog-button-next.png"],
+      ["dialogSkipButton", assets + "ui/dialog-button-skip.png"],
+
+      //portraits
+      [tal.PORTRAIT, assets + "characters/TAL/portrait.png"],
     ],
   },
 
   {
     method: "tilemapTiledJSON",
-    data: [["map", assets + "levels/default_level.json"]],
+    data: [["map", assets + "levels/default/level.json"]],
   },
 
   {

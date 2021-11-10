@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import { preloadData } from "../game/circle/preload";
+import { dialogs } from "./assets/dialogs";
 import { gameResourcesData } from "./assets/preloadData";
 import { Player } from "./modules";
 import { Dialog } from "./modules/Dialog";
@@ -20,13 +21,10 @@ export default class DefaultScene extends Scene {
     const world = map.createLayer(0, tileset, 0, 0);
 
     this.player = new Player(this, map, world);
-    this.dialog = new Dialog(this);
+    this.dialog = new Dialog(this, dialogs, this.extensions, 0);
 
-    this.input.keyboard.on("keydown-W", () => {
-      this.dialog?.hideDialog();
-    });
-    this.input.keyboard.on("keydown-Q", () => {
-      this.dialog?.showDialog();
+    this.input.keyboard.on("keydown-R", () => {
+      this.dialog?.createConversation(0);
     });
   }
 
