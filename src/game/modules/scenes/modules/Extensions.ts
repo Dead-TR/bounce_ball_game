@@ -15,4 +15,18 @@ export class Extensions {
 
     img.setScale(scale);
   }
+
+  createRectangle(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    color: number,
+    alpha: number
+  ) {
+    return this.scene.add
+      .graphics()
+      .fillStyle(color, alpha)
+      .fillRect(x, y, width, height);
+  }
 }

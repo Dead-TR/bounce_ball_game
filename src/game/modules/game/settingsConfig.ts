@@ -34,5 +34,7 @@ export const settingsConfig = {
       names: "red",
       text: "white",
     },
+
+    triggerDebug: true,
   },
 };

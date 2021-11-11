@@ -1,6 +1,7 @@
 import { Scene } from "phaser";
 import { PlayerParamsConfig } from "../../game/circle/types";
 import { settingsConfig } from "../../game/settingsConfig";
+import DefaultScene from "../Default";
 
 export class Player {
   cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -24,18 +25,18 @@ export class Player {
     y: 0,
   };
 
-  constructor(
-    scene: Scene,
-    map: Phaser.Tilemaps.Tilemap,
-    world: Phaser.Tilemaps.TilemapLayer
-  ) {
-    this.createPlayer(scene, map, world);
-    this.createCamera(scene, map, this.playerBody);
+  constructor(scene: DefaultScene) {
+    const { world, map } = scene;
+
+    if (map && world) {
+      this.createPlayer(scene, map, world);
+      this.createCamera(scene, map, this.playerBody);
+    }
     this.createTeleport(scene, this.playerBody);
   }
 
   createPlayer(
-    scene: Scene,
+    scene: DefaultScene,
     map: Phaser.Tilemaps.Tilemap,
     world: Phaser.Tilemaps.TilemapLayer
   ) {
@@ -63,7 +64,7 @@ export class Player {
   }
 
   createCamera(
-    scene: Scene,
+    scene: DefaultScene,
     map: Phaser.Tilemaps.Tilemap,
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
   ) {
@@ -90,7 +91,7 @@ export class Player {
   }
 
   createTeleport(
-    scene: Scene,
+    scene: DefaultScene,
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
   ) {
     scene.anims.create({
@@ -122,8 +123,8 @@ export class Player {
     });
   }
 
-  update(time: number, delta: number) {
-    this.control(delta, time);
+  update(time: number, delta: number, isBlocked?: boolean) {
+    this.control(delta, time, isBlocked);
     this.resetBlockMove(time);
     this.controlPlayerBody(delta);
     this.smoothMoveCameraTowards(this.playerBody, 0.9);
@@ -139,7 +140,7 @@ export class Player {
     }
   }
 
-  control(delta: number, time: number) {
+  control(delta: number, time: number, isBlocked?: boolean) {
     const {
       maxXVelocity,
       startedXVelocity,
@@ -157,7 +158,8 @@ export class Player {
     ///---- Left
     if (
       this.cursors.left.isDown &&
-      !this.playerParamsConfig.blockMove.left.blocked
+      !this.playerParamsConfig.blockMove.left.blocked &&
+      !isBlocked
     ) {
       if (!this.playerBody.body.blocked.none) {
         if (oldVelocityX === 0) {
@@ -176,7 +178,8 @@ export class Player {
       ///---- Right
     } else if (
       this.cursors.right.isDown &&
-      !this.playerParamsConfig.blockMove.right.blocked
+      !this.playerParamsConfig.blockMove.right.blocked &&
+      !isBlocked
     ) {
       if (!this.playerBody.body.blocked.none) {
         if (oldVelocityX === 0) {
@@ -205,7 +208,7 @@ export class Player {
     }
 
     ///---- Up
-    if (this.cursors.up.isDown) {
+    if (this.cursors.up.isDown && !isBlocked) {
       if (this.playerBody.body.blocked.left) {
         this.setBlockMove("left", time);
         this.playerBody.setVelocityX(Math.max(wallJumpXVelocity, oldVelocityX));

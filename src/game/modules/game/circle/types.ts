@@ -33,6 +33,7 @@ export interface ActiveDialog {
   dialog: Dialog;
   replica: number;
   id?: number;
+  isActive?: boolean;
 
   objects: {
     portrait?: Phaser.GameObjects.Image;
@@ -43,4 +44,8 @@ export interface ActiveDialog {
 
 export type IgnoredDialogs = number[][];
 
-const t = [[0, 1, 2]];
+export interface DialogProperties {
+  name: "id";
+  type: "string";
+  value: string;
+}

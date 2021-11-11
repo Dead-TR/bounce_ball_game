@@ -2,14 +2,16 @@ import { Scene } from "phaser";
 import {
   ActiveDialog,
   DialogList,
+  DialogProperties,
   IgnoredDialogs,
   Tweens,
 } from "../../game/circle/types";
 import { settingsConfig } from "../../game/settingsConfig";
+import DefaultScene from "../Default";
 import { Extensions } from "./Extensions";
 
 export class Dialog {
-  scene: Scene;
+  scene: DefaultScene;
   extensions: Extensions;
 
   wrapper: Phaser.GameObjects.Container;
@@ -19,16 +21,11 @@ export class Dialog {
   sceneDialogs: DialogList;
   sceneId: number;
 
-  constructor(
-    scene: Scene,
-    dialogs: DialogList,
-    extensions: Extensions,
-    sceneId: number
-  ) {
+  constructor(scene: DefaultScene, dialogs: DialogList, sceneId: number) {
     this.sceneId = sceneId;
     this.sceneDialogs = dialogs;
     this.scene = scene;
-    this.extensions = extensions;
+    this.extensions = scene.extensions;
 
     const { width, height } = scene.game.config;
     const sceneWidth = Number(width);
@@ -107,6 +104,8 @@ export class Dialog {
       hide: hideTween,
       show: showTween,
     };
+
+    this.createDialogTriggers(scene.map);
   }
 
   tweensPlay(tween: Phaser.Tweens.Tween, onComplete?: () => void) {
@@ -119,10 +118,17 @@ export class Dialog {
   }
 
   showDialog(onComplete?: () => void) {
+    if (this.activeDialog) {
+      this.activeDialog.isActive = true;
+    }
+
     this.tweensPlay(this.tweens.show, onComplete);
   }
 
   hideDialog(onComplete?: () => void) {
+    if (this.activeDialog) {
+      this.activeDialog.isActive = false;
+    }
     this.tweensPlay(this.tweens.hide, onComplete);
   }
 
@@ -279,5 +285,73 @@ export class Dialog {
   closeDialog() {
     const { clearDialog } = this;
     this.hideDialog(clearDialog.bind(this));
+  }
+
+  createTrigger(x: number, y: number, width: number, height: number) {
+    const debug = settingsConfig.dialog.triggerDebug;
+    return this.scene.extensions.createRectangle(
+      x,
+      y,
+      width,
+      height,
+      0x00ff00,
+      debug ? 0.3 : 0
+    );
+  }
+
+  createDialogTriggers(map: Phaser.Tilemaps.Tilemap | null) {
+    if (map) {
+      const layer = map.getObjectLayer("dialogs");
+      const triggerObjects = layer.objects;
+      console.log(
+        "🚀 ~ file: Dialog.ts ~ line 298 ~ Dialog ~ createDialogTriggers ~ triggerObjects",
+        triggerObjects
+      );
+
+      // const container = this.scene.add.container(0, 0);
+      // const triggers: Phaser.GameObjects.Graphics[] = [];
+
+      triggerObjects.forEach(
+        ({ x = -100, y = -100, width = 32, height = 32, properties }) => {
+          const props: DialogProperties[] = properties;
+          const dialogId = Number(
+            props.find((value) => value.name === "id")?.value
+          );
+
+          const trigger = this.scene.add.zone(x, y, width, height).setOrigin(0);
+          this.scene.physics.world.enable(trigger);
+          //@ts-ignore
+          trigger.body.setAllowGravity(false);
+
+          //@ts-ignore
+          trigger.body.moves = false;
+          // trigger.body.
+          // const trigger = this.createTrigger(x, y, width, height);
+          // triggers.push(trigger);
+
+          const { player } = this.scene;
+          if (player?.playerBody) {
+            this.scene.physics.add.overlap(player.playerBody, trigger, () => {
+              this.createConversation(dialogId);
+              trigger.destroy();
+            });
+          }
+        }
+      );
+
+      // container.add(triggers);
+
+      // const group = this.scene.physics.add.staticGroup(triggers);
+      // group.refresh();
+
+      // this.scene.physics.add.collider(this.scene.player.playerBody, group);
+
+      // const { player } = this.scene;
+      // if (player?.playerBody) {
+      //   this.scene.physics.add.collider(player.playerBody, group, (value) => {
+      //     console.log(value);
+      //   });
+      // }
+    }
   }
 }
