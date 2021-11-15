@@ -5,6 +5,7 @@ import { gameResourcesData } from "./assets/preloadData";
 import { Player } from "./modules";
 import { Dialog } from "./modules/Dialog";
 import { Extensions } from "./modules/Extensions";
+import { Level } from "./modules/Level";
 
 export default class DefaultScene extends Scene {
   player: Player | null = null;
@@ -27,6 +28,7 @@ export default class DefaultScene extends Scene {
 
     this.player = new Player(this);
     this.dialog = new Dialog(this, dialogs, 0);
+    const level = new Level(this);
   }
 
   update(time: number, delta: number) {

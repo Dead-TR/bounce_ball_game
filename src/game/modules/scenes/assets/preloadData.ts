@@ -37,6 +37,16 @@ export const gameResourcesData: PreloadTypes[] = [
         assets + "effects/teleport.png",
         assets + "effects/teleport_atlas.json",
       ],
+      [
+        "buttons",
+        assets + "buttons/buttons.png",
+        assets + "buttons/buttons.json",
+      ],
+      [
+        "bridges",
+        assets + "bridges/bridget.png",
+        assets + "bridges/bridget.json",
+      ],
     ],
   },
 ];

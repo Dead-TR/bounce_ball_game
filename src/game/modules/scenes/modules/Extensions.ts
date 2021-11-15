@@ -1,4 +1,9 @@
 import { Scene } from "phaser";
+import {
+  ObjectWithCorners,
+  TiledObjectProperties,
+  UnpackedTiledObjectProperties,
+} from "../../game/circle/types";
 
 export class Extensions {
   scene: Scene;
@@ -28,5 +33,59 @@ export class Extensions {
       .graphics()
       .fillStyle(color, alpha)
       .fillRect(x, y, width, height);
+  }
+
+  getPropsFromObject(props: TiledObjectProperties[]) {
+    return props.reduce<UnpackedTiledObjectProperties>(
+      (acm, { name, value }) => {
+        return {
+          ...acm,
+          [name]: value,
+        };
+      },
+      {}
+    );
+  }
+
+  findCorners(list: ObjectWithCorners[]) {
+    const upLeftX = Math.min.apply(
+      null,
+      list.reduce((acm: number[], { x }) => {
+        acm.push(x);
+        return acm;
+      }, [])
+    );
+    const upLeftY = Math.min.apply(
+      null,
+      list.reduce((acm: number[], { y }) => {
+        acm.push(y);
+        return acm;
+      }, [])
+    );
+
+    const upRightX = Math.max.apply(
+      null,
+      list.reduce((acm: number[], { x, width }) => {
+        acm.push(x + width);
+        return acm;
+      }, [])
+    );
+    const upRightY = Math.max.apply(
+      null,
+      list.reduce((acm: number[], { y, height }) => {
+        acm.push(y + height);
+        return acm;
+      }, [])
+    );
+
+    const rectWidth = upRightX - upLeftX;
+    const rectHeight = upRightY - upLeftY;
+
+    return {
+      upLeftX,
+      upLeftY,
+      rectWidth,
+      rectHeight,
+    };
   }
 }

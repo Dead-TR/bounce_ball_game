@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# develop
+/materials
+
 # production
 /build
 

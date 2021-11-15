@@ -28,20 +28,8 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":231.333333333333,
-                 "y":473.333333333333
-                }, 
-                {
-                 "gid":81,
-                 "height":16,
-                 "id":2,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":231.333333333333,
-                 "y":473.333333333333
+                 "x":235.333333333333,
+                 "y":504
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -55,7 +43,7 @@
          "name":"dialogs",
          "objects":[
                 {
-                 "height":416,
+                 "height":62.6666666666667,
                  "id":3,
                  "name":"",
                  "properties":[
@@ -68,8 +56,193 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":1230.66666666667,
-                 "y":-1.33333333333326
+                 "x":32,
+                 "y":32
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":4,
+         "name":"buttons",
+         "objects":[
+                {
+                 "gid":84,
+                 "height":32,
+                 "id":13,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"bridgetId",
+                         "type":"string",
+                         "value":"0"
+                        }, 
+                        {
+                         "name":"tileName",
+                         "type":"string",
+                         "value":"buttons_0"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":64,
+                 "y":672
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":5,
+         "name":"bridges",
+         "objects":[
+                {
+                 "gid":82,
+                 "height":32,
+                 "id":14,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"bridgetId",
+                         "type":"string",
+                         "value":"0"
+                        }, 
+                        {
+                         "name":"from",
+                         "type":"string",
+                         "value":"top"
+                        }, 
+                        {
+                         "name":"tileName",
+                         "type":"string",
+                         "value":"bridget_0"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1024,
+                 "y":544
+                }, 
+                {
+                 "gid":82,
+                 "height":32,
+                 "id":18,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"bridgetId",
+                         "type":"string",
+                         "value":"0"
+                        }, 
+                        {
+                         "name":"from",
+                         "type":"string",
+                         "value":"bottom"
+                        }, 
+                        {
+                         "name":"tileName",
+                         "type":"string",
+                         "value":"bridget_0"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":992,
+                 "y":544
+                }, 
+                {
+                 "gid":82,
+                 "height":32,
+                 "id":19,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"bridgetId",
+                         "type":"string",
+                         "value":"0"
+                        }, 
+                        {
+                         "name":"from",
+                         "type":"string",
+                         "value":"bottom"
+                        }, 
+                        {
+                         "name":"tileName",
+                         "type":"string",
+                         "value":"bridget_0"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1056,
+                 "y":544
+                }, 
+                {
+                 "gid":82,
+                 "height":32,
+                 "id":20,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"bridgetId",
+                         "type":"string",
+                         "value":"0"
+                        }, 
+                        {
+                         "name":"from",
+                         "type":"string",
+                         "value":"top"
+                        }, 
+                        {
+                         "name":"tileName",
+                         "type":"string",
+                         "value":"bridget_0"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1088,
+                 "y":544
+                }, 
+                {
+                 "gid":82,
+                 "height":32,
+                 "id":28,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"bridgetId",
+                         "type":"string",
+                         "value":"0"
+                        }, 
+                        {
+                         "name":"from",
+                         "type":"string",
+                         "value":"bottom"
+                        }, 
+                        {
+                         "name":"tileName",
+                         "type":"string",
+                         "value":"bridget_0"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1120,
+                 "y":544
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -77,8 +250,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":4,
+ "nextlayerid":6,
+ "nextobjectid":29,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -109,6 +282,45 @@
          "tilecount":1,
          "tileheight":16,
          "tilewidth":16
+        }, 
+        {
+         "columns":2,
+         "firstgid":82,
+         "image":"..\/..\/bridges\/bridget.png",
+         "imageheight":32,
+         "imagewidth":65,
+         "margin":0,
+         "name":"bridget",
+         "spacing":1,
+         "tilecount":2,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":1,
+         "firstgid":84,
+         "image":"..\/..\/buttons\/buttons.png",
+         "imageheight":96,
+         "imagewidth":64,
+         "margin":0,
+         "name":"buttons",
+         "spacing":0,
+         "tilecount":3,
+         "tileheight":32,
+         "tiles":[
+                {
+                 "id":0,
+                 "type":"0"
+                }, 
+                {
+                 "id":1,
+                 "type":"1"
+                }, 
+                {
+                 "id":2,
+                 "type":"2"
+                }],
+         "tilewidth":64
         }],
  "tilewidth":32,
  "type":"map",

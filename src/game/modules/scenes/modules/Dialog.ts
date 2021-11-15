@@ -303,13 +303,6 @@ export class Dialog {
     if (map) {
       const layer = map.getObjectLayer("dialogs");
       const triggerObjects = layer.objects;
-      console.log(
-        "🚀 ~ file: Dialog.ts ~ line 298 ~ Dialog ~ createDialogTriggers ~ triggerObjects",
-        triggerObjects
-      );
-
-      // const container = this.scene.add.container(0, 0);
-      // const triggers: Phaser.GameObjects.Graphics[] = [];
 
       triggerObjects.forEach(
         ({ x = -100, y = -100, width = 32, height = 32, properties }) => {
@@ -325,9 +318,6 @@ export class Dialog {
 
           //@ts-ignore
           trigger.body.moves = false;
-          // trigger.body.
-          // const trigger = this.createTrigger(x, y, width, height);
-          // triggers.push(trigger);
 
           const { player } = this.scene;
           if (player?.playerBody) {
@@ -338,20 +328,6 @@ export class Dialog {
           }
         }
       );
-
-      // container.add(triggers);
-
-      // const group = this.scene.physics.add.staticGroup(triggers);
-      // group.refresh();
-
-      // this.scene.physics.add.collider(this.scene.player.playerBody, group);
-
-      // const { player } = this.scene;
-      // if (player?.playerBody) {
-      //   this.scene.physics.add.collider(player.playerBody, group, (value) => {
-      //     console.log(value);
-      //   });
-      // }
     }
   }
 }

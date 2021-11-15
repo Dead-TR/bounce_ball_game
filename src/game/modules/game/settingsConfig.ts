@@ -37,4 +37,11 @@ export const settingsConfig = {
 
     triggerDebug: true,
   },
+
+  bridges: {
+    animation: {
+      ease: "Quad.easeInOut",
+      duration: 1000,
+    },
+  },
 };

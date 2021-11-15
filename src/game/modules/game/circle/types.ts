@@ -49,3 +49,30 @@ export interface DialogProperties {
   type: "string";
   value: string;
 }
+
+export type TiledObjectProperties = {
+  type: "string";
+  name: string;
+  value: string;
+};
+
+export interface UnpackedTiledObjectProperties {
+  [name: string]: string;
+}
+
+export interface ButtonsProps {
+  bridgetId?: string;
+  tileName?: string;
+}
+
+export interface BridgetProps extends ButtonsProps {
+  from?: "bottom" | "top";
+}
+
+export interface ObjectWithCorners {
+  [key: string]: any;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
