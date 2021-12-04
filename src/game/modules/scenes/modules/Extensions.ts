@@ -1,9 +1,9 @@
-import { Scene } from "phaser";
 import {
   ObjectWithCorners,
   TiledObjectProperties,
   UnpackedTiledObjectProperties,
-} from "../../game/circle/types";
+} from "game/modules/game/circle";
+import { Scene } from "phaser";
 
 export class Extensions {
   scene: Scene;

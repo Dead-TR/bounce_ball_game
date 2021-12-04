@@ -1,5 +1,5 @@
-import { DialogList } from "../../game/circle/types";
-import { storyConfig } from "../../game/storyConfig";
+import { storyConfig } from "game/modules";
+import { DialogList } from "game/modules/game/circle/types";
 
 const { tal } = storyConfig.characters;
 

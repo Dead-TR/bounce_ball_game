@@ -1,10 +1,7 @@
-import createGuard from "../../../../utils/createGuard";
-import {
-  BridgetProps,
-  ButtonsProps,
-  ObjectWithCorners,
-} from "../../game/circle/types";
-import { settingsConfig } from "../../game/settingsConfig";
+import { settingsConfig } from "game/modules";
+import { BridgetProps, ButtonsProps, ObjectWithCorners, TrapProps } from "game/modules/game/circle";
+import { createGuard } from "utils";
+
 import DefaultScene from "../Default";
 
 const arcadeBodyGuard = createGuard<Phaser.Physics.Arcade.Body>("setVelocity");
@@ -20,6 +17,7 @@ export class Level {
 
     if (map && player) {
       this.createButtons(scene, map, player);
+      this.createTraps(scene, map, player);
     }
   }
 
@@ -132,5 +130,37 @@ export class Level {
 
       scene.physics.add.collider(player, bridgeBody, () => {});
     }, duration);
+  }
+
+  createTraps(
+    scene: DefaultScene,
+    map: Phaser.Tilemaps.Tilemap,
+    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
+  ) {
+    const layer = map.getObjectLayer("traps");
+    const trapsList = layer?.objects || [];
+
+    trapsList.forEach(({ x = -100, y = -100, properties }) => {
+      const props: TrapProps = scene.extensions.getPropsFromObject(properties);
+
+      const textureName =
+        props.orientation === "vertical" ? "trap_v" : "trap_h";
+
+      const trap = scene.add
+        .sprite(x, y, textureName)
+        .setOrigin(0, 1)
+        .setDepth(-1);
+
+      scene.physics.world.enable(trap);
+
+      if (arcadeBodyGuard(trap.body)) {
+        trap.body.setAllowGravity(false);
+        trap.body.moves = false;
+      }
+
+      scene.physics.add.overlap(player, trap, () => {
+        // -- HP Here
+      });
+    });
   }
 }

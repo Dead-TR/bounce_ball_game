@@ -69,6 +69,10 @@ export interface BridgetProps extends ButtonsProps {
   from?: "bottom" | "top";
 }
 
+export interface TrapProps {
+  orientation?: "horizontal" | "vertical";
+}
+
 export interface ObjectWithCorners {
   [key: string]: any;
   x: number;

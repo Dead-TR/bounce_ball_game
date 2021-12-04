@@ -1,4 +1,4 @@
-import { settingsConfig } from "../game/settingsConfig";
+import { settingsConfig } from "..";
 import DefaultScene from "../scenes/Default";
 
 export const config: Phaser.Types.Core.GameConfig = {

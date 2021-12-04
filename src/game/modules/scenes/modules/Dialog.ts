@@ -1,14 +1,12 @@
-import { Scene } from "phaser";
+import { Extensions, settingsConfig } from "game/modules";
 import {
   ActiveDialog,
   DialogList,
   DialogProperties,
   IgnoredDialogs,
   Tweens,
-} from "../../game/circle/types";
-import { settingsConfig } from "../../game/settingsConfig";
+} from "game/modules/game/circle";
 import DefaultScene from "../Default";
-import { Extensions } from "./Extensions";
 
 export class Dialog {
   scene: DefaultScene;

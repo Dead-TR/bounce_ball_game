@@ -1,6 +1,5 @@
-import { Scene } from "phaser";
-import { PlayerParamsConfig } from "../../game/circle/types";
-import { settingsConfig } from "../../game/settingsConfig";
+import { settingsConfig } from "game/modules";
+import { PlayerParamsConfig } from "game/modules/game/circle";
 import DefaultScene from "../Default";
 
 export class Player {
