@@ -1,4 +1,4 @@
-import { settingsConfig } from "..";
+import { settingsConfig } from "../game/settingsConfig";
 import DefaultScene from "../scenes/Default";
 
 export const config: Phaser.Types.Core.GameConfig = {
@@ -8,7 +8,6 @@ export const config: Phaser.Types.Core.GameConfig = {
   width: 1280,
   scene: [DefaultScene],
   backgroundColor: 0x14003b,
-  // transparent: true,
   physics: {
     default: "arcade",
     arcade: {

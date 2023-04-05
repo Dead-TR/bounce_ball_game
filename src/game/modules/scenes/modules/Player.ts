@@ -1,5 +1,4 @@
-import { settingsConfig } from "game/modules";
-import { PlayerParamsConfig } from "game/modules/game/circle";
+import { PlayerParamsConfig, settingsConfig } from "../../game";
 import DefaultScene from "../Default";
 
 export class Player {
@@ -37,7 +36,7 @@ export class Player {
   createPlayer(
     scene: DefaultScene,
     map: Phaser.Tilemaps.Tilemap,
-    world: Phaser.Tilemaps.TilemapLayer
+    world: Phaser.Tilemaps.TilemapLayer,
   ) {
     const { playerBounce } = settingsConfig;
     const layer = map.getObjectLayer("player");
@@ -49,7 +48,7 @@ export class Player {
     this.playerVisual = scene.add.sprite(
       this.playerBody.x,
       this.playerBody.y,
-      "playerBody"
+      "playerBody",
     );
     this.playerBody
       .setBounce(playerBounce)
@@ -65,7 +64,7 @@ export class Player {
   createCamera(
     scene: DefaultScene,
     map: Phaser.Tilemaps.Tilemap,
-    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
+    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
   ) {
     this.camera = scene.cameras.main;
     this.camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -74,7 +73,7 @@ export class Player {
 
   smoothMoveCameraTowards(
     target: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody | null,
-    smoothFactor?: number
+    smoothFactor?: number,
   ) {
     if (this.camera && target) {
       if (smoothFactor === undefined) {
@@ -91,7 +90,7 @@ export class Player {
 
   createTeleport(
     scene: DefaultScene,
-    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
+    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
   ) {
     scene.anims.create({
       key: "teleportAnimation",
@@ -215,7 +214,7 @@ export class Player {
       } else if (this.playerBody.body.blocked.right) {
         this.setBlockMove("right", time);
         this.playerBody.setVelocityX(
-          Math.min(-wallJumpXVelocity, oldVelocityX)
+          Math.min(-wallJumpXVelocity, oldVelocityX),
         );
         this.playerBody.setVelocityY(-wallJumpYVelocity);
       } else if (this.playerBody.body.blocked.down) {

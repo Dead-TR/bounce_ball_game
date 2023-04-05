@@ -1,12 +1,7 @@
-import { Extensions, settingsConfig } from "game/modules";
-import {
-  ActiveDialog,
-  DialogList,
-  DialogProperties,
-  IgnoredDialogs,
-  Tweens,
-} from "game/modules/game/circle";
+import { Extensions } from ".";
+import { ActiveDialog, DialogList, DialogProperties, IgnoredDialogs, settingsConfig, Tweens } from "../../game";
 import DefaultScene from "../Default";
+
 
 export class Dialog {
   scene: DefaultScene;

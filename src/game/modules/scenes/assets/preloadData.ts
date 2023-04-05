@@ -1,5 +1,5 @@
-import { storyConfig } from "game/modules";
-import { PreloadTypes } from "game/modules/game/circle";
+import { PreloadTypes } from "../../game/circle/types";
+import { storyConfig } from "../../game/storyConfig";
 
 const assets = "assets/";
 
@@ -21,10 +21,6 @@ export const gameResourcesData: PreloadTypes[] = [
 
       //portraits
       [tal.PORTRAIT, assets + "characters/TAL/portrait.png"],
-
-      //objects
-      ["trap_h", assets + "enemies/fire.png"],
-      ["trap_v", assets + "enemies/fire_2.png"],
     ],
   },
 

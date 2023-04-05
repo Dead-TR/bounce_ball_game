@@ -1,14 +1,22 @@
-import { settingsConfig } from "game/modules";
-import { BridgetProps, ButtonsProps, ObjectWithCorners, TrapProps } from "game/modules/game/circle";
 import { createGuard } from "utils";
-
+import {
+  BridgetProps,
+  BridgetButtonProps,
+  ObjectWithCorners,
+  settingsConfig,
+  WallButtonProps,
+  WallProps,
+  LevelState,
+} from "game/modules/game";
 import DefaultScene from "../Default";
 
 const arcadeBodyGuard = createGuard<Phaser.Physics.Arcade.Body>("setVelocity");
 const { duration, ease } = settingsConfig.bridges.animation;
 
 export class Level {
-  scene: DefaultScene;
+  private scene: DefaultScene;
+  private state: LevelState = {};
+
   constructor(scene: DefaultScene) {
     this.scene = scene;
 
@@ -17,23 +25,26 @@ export class Level {
 
     if (map && player) {
       this.createButtons(scene, map, player);
-      this.createTraps(scene, map, player);
+      this.createWalls(scene, map, player);
     }
   }
 
   createButtons(
     scene: DefaultScene,
     map: Phaser.Tilemaps.Tilemap,
-    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
+    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
   ) {
-    const layer = map.getObjectLayer("buttons");
-    const buttonsList = layer.objects;
+    const bridgetButtonsLayer = map.getObjectLayer("buttons");
+    const bridgetButtonsList = bridgetButtonsLayer.objects;
 
-    const textures = scene.textures.get("buttons").getFrameNames();
+    const wallButtonsLayer = map.getObjectLayer("wallButtons");
+    const wallButtonsList = wallButtonsLayer.objects;
 
-    buttonsList.forEach(
+    const buttonTextures = scene.textures.get("buttons").getFrameNames();
+
+    bridgetButtonsList.forEach(
       ({ x = -100, y = -100, width = -100, height = -100, properties }, i) => {
-        const props: ButtonsProps =
+        const props: BridgetButtonProps =
           scene.extensions.getPropsFromObject(properties);
 
         const button = scene.add
@@ -43,7 +54,7 @@ export class Level {
             width,
             height,
             "buttons",
-            props.tileName || textures[0]
+            props.tileName || buttonTextures[0],
           )
           .setOrigin(0, 1);
         scene.physics.world.enable(button);
@@ -57,15 +68,131 @@ export class Level {
           button.destroy();
           this.createBridge(scene, map, player, props.bridgetId);
         });
-      }
+      },
     );
+
+    wallButtonsList.forEach(
+      ({ x = -100, y = -100, width = -100, height = -100, properties }, i) => {
+        const props: WallButtonProps =
+          scene.extensions.getPropsFromObject(properties);
+
+        const button = scene.add
+          .tileSprite(
+            x,
+            y,
+            width,
+            height,
+            "buttons",
+            props.tileName || buttonTextures[0],
+          )
+          .setOrigin(0, 1);
+        scene.physics.world.enable(button);
+
+        if (arcadeBodyGuard(button.body)) {
+          button.body.setAllowGravity(false);
+        }
+
+        const { height: gameHeight } = scene.game.config;
+
+        scene.physics.add.overlap(player, button, () => {
+          button.destroy();
+
+          debugger;
+
+          if (props.wallId !== undefined) {
+            const { body, wall } = this.state[props.wallId];
+
+            body.destroy();
+
+            wall.forEach(({ props, sprite }) => {
+              const y =
+                props.direction === "top"
+                  ? -(sprite.height + 100)
+                  : Number(gameHeight) + sprite.height + 100;
+
+              const animation = scene.tweens.add({
+                targets: sprite,
+                y,
+                ease,
+                duration,
+                repeat: 0,
+              });
+            });
+          }
+        });
+      },
+    );
+  }
+
+  createWalls(
+    scene: DefaultScene,
+    map: Phaser.Tilemaps.Tilemap,
+    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
+  ) {
+    const layer = map.getObjectLayer("walls");
+    const wallsList = layer.objects;
+    const textures = scene.textures.get("bridges").getFrameNames();
+
+    const sprites: Record<
+      string,
+      { sprite: Phaser.GameObjects.TileSprite; props: WallProps }[]
+    > = {};
+
+    wallsList.forEach(
+      ({ x = -100, y = -100, width = 0, height = 0, properties }, i) => {
+        const props: WallProps =
+          scene.extensions.getPropsFromObject(properties);
+
+        if (props.wallId === undefined) return;
+
+        const wall = scene.add
+          .tileSprite(
+            x,
+            y,
+            width,
+            height,
+            "bridges",
+            props.tileName || textures[0],
+          )
+          .setOrigin(0, 1);
+
+        if (!sprites[props.wallId]) sprites[props.wallId] = [];
+
+        sprites[props.wallId].push({ props, sprite: wall });
+      },
+    );
+
+    Object.entries(sprites).forEach(([id, sprites]) => {
+      const { x, y, rectWidth, rectHeight } = scene.extensions.findCorners(
+        sprites.map(({ sprite }) => sprite),
+      );
+
+      const bridgeBody = scene.add
+        .zone(x, y, rectWidth, rectHeight)
+        .setOrigin(0, 1);
+      this.scene.physics.world.enable(
+        bridgeBody,
+        Phaser.Physics.Arcade.STATIC_BODY,
+      );
+
+      if (arcadeBodyGuard(bridgeBody.body)) {
+        bridgeBody.body.setAllowGravity(false).setImmovable().setFriction(0, 0);
+        bridgeBody.body.moves = false;
+      }
+      scene.physics.add.collider(player, bridgeBody, () => {});
+
+      this.state[id] = {
+        body: bridgeBody,
+        wall: sprites,
+      };
+    });
   }
 
   createBridge(
     scene: DefaultScene,
     map: Phaser.Tilemaps.Tilemap,
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
-    id?: string | number
+    id?: string | number,
   ) {
     if (!id) {
       return;
@@ -95,7 +222,7 @@ export class Level {
               width,
               height,
               "bridges",
-              props.tileName || textures[0]
+              props.tileName || textures[0],
             )
             .setOrigin(0, 1);
 
@@ -109,18 +236,18 @@ export class Level {
             repeat: 0,
           });
         }
-      }
+      },
     );
 
     setTimeout(() => {
-      const { upLeftX, upLeftY, rectWidth, rectHeight } =
+      const { x, y, rectWidth, rectHeight } =
         scene.extensions.findCorners(bridgeSprites);
       const bridgeBody = scene.add
-        .zone(upLeftX, upLeftY, rectWidth, rectHeight)
+        .zone(x, y, rectWidth, rectHeight)
         .setOrigin(0, 1);
       this.scene.physics.world.enable(
         bridgeBody,
-        Phaser.Physics.Arcade.STATIC_BODY
+        Phaser.Physics.Arcade.STATIC_BODY,
       );
 
       if (arcadeBodyGuard(bridgeBody.body)) {
@@ -130,37 +257,5 @@ export class Level {
 
       scene.physics.add.collider(player, bridgeBody, () => {});
     }, duration);
-  }
-
-  createTraps(
-    scene: DefaultScene,
-    map: Phaser.Tilemaps.Tilemap,
-    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
-  ) {
-    const layer = map.getObjectLayer("traps");
-    const trapsList = layer?.objects || [];
-
-    trapsList.forEach(({ x = -100, y = -100, properties }) => {
-      const props: TrapProps = scene.extensions.getPropsFromObject(properties);
-
-      const textureName =
-        props.orientation === "vertical" ? "trap_v" : "trap_h";
-
-      const trap = scene.add
-        .sprite(x, y, textureName)
-        .setOrigin(0, 1)
-        .setDepth(-1);
-
-      scene.physics.world.enable(trap);
-
-      if (arcadeBodyGuard(trap.body)) {
-        trap.body.setAllowGravity(false);
-        trap.body.moves = false;
-      }
-
-      scene.physics.add.overlap(player, trap, () => {
-        // -- HP Here
-      });
-    });
   }
 }

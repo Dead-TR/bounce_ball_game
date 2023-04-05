@@ -60,17 +60,13 @@ export interface UnpackedTiledObjectProperties {
   [name: string]: string;
 }
 
-export interface ButtonsProps {
+export interface BridgetButtonProps {
   bridgetId?: string;
   tileName?: string;
 }
 
-export interface BridgetProps extends ButtonsProps {
+export interface BridgetProps extends BridgetButtonProps {
   from?: "bottom" | "top";
-}
-
-export interface TrapProps {
-  orientation?: "horizontal" | "vertical";
 }
 
 export interface ObjectWithCorners {
@@ -80,3 +76,23 @@ export interface ObjectWithCorners {
   width: number;
   height: number;
 }
+
+export interface WallButtonProps {
+  wallId?: string;
+  tileName?: string;
+}
+
+export interface WallProps extends WallButtonProps {
+  direction?: "bottom" | "top";
+}
+
+export type LevelState = Record<
+  number | string,
+  {
+    wall: {
+      sprite: Phaser.GameObjects.TileSprite;
+      props: WallProps;
+    }[];
+    body: Phaser.GameObjects.Zone;
+  }
+>;

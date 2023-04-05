@@ -1,4 +1,4 @@
-export const createGuard = function <Type>(checkedKey: string) {
+export function createGuard<Type>(checkedKey: string) {
   return function (value: Type | any): value is Type {
     if (!value) {
       return false;
@@ -9,6 +9,6 @@ export const createGuard = function <Type>(checkedKey: string) {
 
     return !!result || result === 0;
   };
-};
+}
 
 export default createGuard;

@@ -1,5 +1,5 @@
-import { storyConfig } from "game/modules";
-import { DialogList } from "game/modules/game/circle/types";
+import { DialogList } from "../../game/circle/types";
+import { storyConfig } from "../../game/storyConfig";
 
 const { tal } = storyConfig.characters;
 
@@ -8,23 +8,23 @@ export const dialogs: DialogList = [
     {
       portrait: tal.PORTRAIT,
       name: tal.NAME,
-      replica: "Hi, my friend",
+      replica: "Dialog #1",
     },
     {
       portrait: tal.PORTRAIT,
       name: tal.NAME,
-      replica: "This is our first dialog",
+      replica: "Dialog #2",
     },
     {
       portrait: tal.PORTRAIT,
       name: tal.NAME,
       replica:
-        "test string: lalalalalala ababagalamaga -sdfdsf -dfsd f -hhfghfgh-jopikdsf ojeo sdfdsf -dfsd f -hhfghfgh-jopikdsf ojeo -*/ s d f dsf -dfsd f -hhfghfgh-jopikdsf ojeo /* sdfdsf -dfsd f -hhfghfgh-jopikdsf ojeo sdfdsf -dfsd f -hhfghfgh-jopikdsf ojeo sdfdsf -dfsd f -hhfghfgh-jopikdsf ojeo sdfdsf -dfsd f -hhfghfgh-jopikdsf ojeo",
+        "Dialog #3 (long): ----------- ############# ---------------------------- +++++++++++++++++++++++++++++++++++ $$$$$$$$$$$$$$$$$$$$ #################### ######################## ##########################",
     },
     {
       portrait: tal.PORTRAIT,
       name: tal.NAME,
-      replica: "Hope you fun",
+      replica: "Dialog #4",
     },
   ],
 ];

@@ -1,13 +1,10 @@
 import { Scene } from "phaser";
-import {
-  Dialog,
-  dialogs,
-  Extensions,
-  gameResourcesData,
-  Level,
-  Player,
-  preloadData,
-} from "..";
+import { preloadData } from "../game";
+import { dialogs, gameResourcesData } from "./assets";
+
+
+
+import { Dialog, Extensions, Level, Player } from "./modules";
 
 export default class DefaultScene extends Scene {
   player: Player | null = null;
@@ -24,7 +21,7 @@ export default class DefaultScene extends Scene {
     this.map = this.make.tilemap({ key: "map" });
     const tileset = this.map.addTilesetImage(
       "platforms32x32",
-      "platforms32x32"
+      "platforms32x32",
     );
     this.world = this.map.createLayer(0, tileset, 0, 0);
 

@@ -1,9 +1,9 @@
+import { Scene } from "phaser";
 import {
   ObjectWithCorners,
   TiledObjectProperties,
   UnpackedTiledObjectProperties,
-} from "game/modules/game/circle";
-import { Scene } from "phaser";
+} from "../../game";
 
 export class Extensions {
   scene: Scene;
@@ -27,7 +27,7 @@ export class Extensions {
     width: number,
     height: number,
     color: number,
-    alpha: number
+    alpha: number,
   ) {
     return this.scene.add
       .graphics()
@@ -43,7 +43,7 @@ export class Extensions {
           [name]: value,
         };
       },
-      {}
+      {},
     );
   }
 
@@ -53,14 +53,14 @@ export class Extensions {
       list.reduce((acm: number[], { x }) => {
         acm.push(x);
         return acm;
-      }, [])
+      }, []),
     );
     const upLeftY = Math.min.apply(
       null,
       list.reduce((acm: number[], { y }) => {
         acm.push(y);
         return acm;
-      }, [])
+      }, []),
     );
 
     const upRightX = Math.max.apply(
@@ -68,22 +68,32 @@ export class Extensions {
       list.reduce((acm: number[], { x, width }) => {
         acm.push(x + width);
         return acm;
-      }, [])
+      }, []),
     );
     const upRightY = Math.max.apply(
       null,
       list.reduce((acm: number[], { y, height }) => {
         acm.push(y + height);
         return acm;
-      }, [])
+      }, []),
+    );
+
+    const maxY = Math.max.apply(
+      null,
+      list.reduce((acm: number[], { y }) => {
+        acm.push(y);
+        return acm;
+      }, []),
     );
 
     const rectWidth = upRightX - upLeftX;
     const rectHeight = upRightY - upLeftY;
+    const x = upLeftX;
+    const y = maxY;
 
     return {
-      upLeftX,
-      upLeftY,
+      x,
+      y,
       rectWidth,
       rectHeight,
     };
