@@ -1,1 +1,1 @@
-[Example Game](https://dead-tr.github.io/JACK_game/)
+[Example Game](https://dead-tr.github.io/bounce_ball_game/)
