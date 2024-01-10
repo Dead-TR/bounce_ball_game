@@ -1,9 +1,7 @@
 import { Scene } from "phaser";
+
 import { preloadData } from "../game";
-import { dialogs, gameResourcesData } from "./assets";
-
-
-
+import { assets, dialogs, gameResourcesData } from "./assets";
 import { Dialog, Extensions, Level, Player } from "./modules";
 
 export default class DefaultScene extends Scene {
@@ -13,10 +11,25 @@ export default class DefaultScene extends Scene {
   map: Phaser.Tilemaps.Tilemap | null = null;
   world: Phaser.Tilemaps.TilemapLayer | null = null;
 
+  private levelName: string;
+
+  constructor(levelName: string) {
+    super({ key: levelName });
+
+    this.levelName = levelName;
+  }
+
   preload() {
     this.extensions = new Extensions(this);
-    preloadData.call(this, gameResourcesData);
+    preloadData.call(this, [
+      ...gameResourcesData,
+      {
+        method: "tilemapTiledJSON",
+        data: [["map", assets + `levels/${this.levelName}.json`]],
+      },
+    ]);
   }
+
   create() {
     this.map = this.make.tilemap({ key: "map" });
     const tileset = this.map.addTilesetImage(

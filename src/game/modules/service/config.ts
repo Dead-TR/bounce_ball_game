@@ -1,12 +1,12 @@
 import { settingsConfig } from "../game/settingsConfig";
-import DefaultScene from "../scenes/Default";
+import { Level_0, Level_1 } from "../levels";
 
 export const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.CANVAS,
   parent: "game-box",
   height: 720,
   width: 1280,
-  scene: [DefaultScene],
+  scene: [Level_1, Level_0],
   backgroundColor: 0x14003b,
   physics: {
     default: "arcade",

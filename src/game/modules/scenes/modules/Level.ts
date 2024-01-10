@@ -9,6 +9,7 @@ import {
   LevelState,
 } from "game/modules/game";
 import DefaultScene from "../Default";
+import { Level_0 } from "game/modules/levels";
 
 const arcadeBodyGuard = createGuard<Phaser.Physics.Arcade.Body>("setVelocity");
 const { duration, ease } = settingsConfig.bridges.animation;
@@ -26,7 +27,44 @@ export class Level {
     if (map && player) {
       this.createButtons(scene, map, player);
       this.createWalls(scene, map, player);
+      this.createFinish(scene, map, player);
     }
+  }
+
+  createFinish(
+    scene: DefaultScene,
+    map: Phaser.Tilemaps.Tilemap,
+    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
+  ) {
+    const layer = map.getObjectLayer("finish");
+    const finishList = layer.objects;
+    const texture = scene.textures.get("finish").getFrameNames();
+
+    finishList.forEach(
+      ({ x = -100, y = -100, width = -100, height = -100, properties }) => {
+        const finish = scene.add
+          .tileSprite(x, y, width, height, "buttons", texture[0])
+          .setOrigin(0, 1);
+        scene.physics.world.enable(finish);
+        if (arcadeBodyGuard(finish.body)) {
+          finish.body.setAllowGravity(false);
+        }
+
+
+
+        scene.physics.add.overlap(player, finish, () => {
+          // FINISH HERE
+          // level.stop("ex_1");
+          // level.remove("ex_1");
+          // level.launch("ex_0");
+          // level.pause();
+
+          // level.remove('ex_1')
+          // level.start('ex_0');
+          // this.scene.scene.start("ex_0");
+        });
+      },
+    );
   }
 
   createButtons(
@@ -61,7 +99,6 @@ export class Level {
 
         if (arcadeBodyGuard(button.body)) {
           button.body.setAllowGravity(false);
-          // button.body.setVelocity(50, 0);
         }
 
         scene.physics.add.overlap(player, button, () => {

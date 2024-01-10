@@ -1,7 +1,7 @@
 import { PreloadTypes } from "../../game/circle/types";
 import { storyConfig } from "../../game/storyConfig";
 
-const assets = "assets/";
+export const assets = "assets/";
 
 const { tal } = storyConfig.characters;
 
@@ -22,11 +22,6 @@ export const gameResourcesData: PreloadTypes[] = [
       //portraits
       [tal.PORTRAIT, assets + "characters/TAL/portrait.png"],
     ],
-  },
-
-  {
-    method: "tilemapTiledJSON",
-    data: [["map", assets + "levels/default/level.json"]],
   },
 
   {
