@@ -1,9 +1,10 @@
 import { Scene } from "phaser";
+
 import {
   ObjectWithCorners,
   TiledObjectProperties,
   UnpackedTiledObjectProperties,
-} from "../../game";
+} from "game/type";
 
 export class Extensions {
   scene: Scene;
@@ -35,16 +36,15 @@ export class Extensions {
       .fillRect(x, y, width, height);
   }
 
-  getPropsFromObject(props: TiledObjectProperties[]) {
-    return props.reduce<UnpackedTiledObjectProperties>(
-      (acm, { name, value }) => {
-        return {
-          ...acm,
-          [name]: value,
-        };
-      },
-      {},
-    );
+  getPropsFromObject<Return = UnpackedTiledObjectProperties>(
+    props: TiledObjectProperties[],
+  ) {
+    return props.reduce((acm, { name, value }) => {
+      return {
+        ...acm,
+        [name]: value,
+      };
+    }, {} as Return);
   }
 
   findCorners(list: ObjectWithCorners[]) {

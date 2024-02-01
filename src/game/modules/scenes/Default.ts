@@ -6,8 +6,10 @@ import { Dialog, Extensions, Level, Player } from "./modules";
 
 export default class DefaultScene extends Scene {
   player: Player | null = null;
-  extensions!: Extensions;
   dialog: Dialog | null = null;
+  level: Level | null = null;
+  extensions!: Extensions;
+
   map: Phaser.Tilemaps.Tilemap | null = null;
   world: Phaser.Tilemaps.TilemapLayer | null = null;
 
@@ -21,13 +23,14 @@ export default class DefaultScene extends Scene {
 
   preload() {
     this.extensions = new Extensions(this);
-    preloadData.call(this, [
+    preloadData.call(this, {
       ...gameResourcesData,
-      {
-        method: "tilemapTiledJSON",
-        data: [["map", assets + `levels/${this.levelName}.json`]],
-      },
-    ]);
+      tilemapTiledJSON: [
+        //@ts-ignore
+        ...gameResourcesData.tilemapTiledJSON,
+        ["map", assets + `levels/${this.levelName}.json`],
+      ],
+    });
   }
 
   create() {
@@ -36,14 +39,19 @@ export default class DefaultScene extends Scene {
       "platforms32x32",
       "platforms32x32",
     );
+    if (!tileset) throw `wrong tileset data: ${JSON.stringify(tileset)}`;
     this.world = this.map.createLayer(0, tileset, 0, 0);
 
     this.player = new Player(this);
     this.dialog = new Dialog(this, dialogs, 0);
-    const level = new Level(this);
+    this.level = new Level(this);
   }
 
   update(time: number, delta: number) {
-    this.player?.update(time, delta, this.dialog?.activeDialog?.isActive);
+    this.player?.update(
+      time,
+      delta,
+      this.dialog?.activeDialog?.isActive || this.level?.overlap,
+    );
   }
 }

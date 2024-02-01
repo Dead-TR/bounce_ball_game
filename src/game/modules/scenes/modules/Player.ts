@@ -1,8 +1,9 @@
-import { PlayerParamsConfig, settingsConfig } from "../../game";
+import { PlayerParamsConfig } from "game/type";
+import { settingsConfig } from "../../game";
 import DefaultScene from "../Default";
 
 export class Player {
-  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
   playerBody!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   playerVisual!: Phaser.GameObjects.Sprite;
   camera!: Phaser.Cameras.Scene2D.Camera;
@@ -40,10 +41,10 @@ export class Player {
   ) {
     const { playerBounce } = settingsConfig;
     const layer = map.getObjectLayer("player");
-    const playerData = layer.objects[0];
+    const playerData = layer?.objects[0];
 
     this.playerBody = scene.physics.add
-      .sprite(playerData.x || 0, playerData.y || 0, "playerSprite")
+      .sprite(playerData?.x || 0, playerData?.y || 0, "playerSprite")
       .setAlpha(0);
     this.playerVisual = scene.add.sprite(
       this.playerBody.x,
@@ -58,7 +59,7 @@ export class Player {
     scene.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     world.setCollisionByExclusion([-1], true);
 
-    this.cursors = scene.input.keyboard.createCursorKeys();
+    this.cursors = scene.input.keyboard?.createCursorKeys();
   }
 
   createCamera(
@@ -98,14 +99,14 @@ export class Player {
       frameRate: 20,
       repeat: 0,
     });
-    scene.input.keyboard.on("keydown-ENTER", () => {
+    scene.input.keyboard?.on("keydown-ENTER", () => {
       this.coordinates = {
         x: player.x || 0,
         y: player.y || 0,
       };
     });
 
-    scene.input.keyboard.on("keydown-SPACE", () => {
+    scene.input.keyboard?.on("keydown-SPACE", () => {
       const { x, y } = this.coordinates;
       if (player) {
         player.x = x;
@@ -155,7 +156,7 @@ export class Player {
 
     ///---- Left
     if (
-      this.cursors.left.isDown &&
+      this.cursors?.left.isDown &&
       !this.playerParamsConfig.blockMove.left.blocked &&
       !isBlocked
     ) {
@@ -175,7 +176,7 @@ export class Player {
 
       ///---- Right
     } else if (
-      this.cursors.right.isDown &&
+      this.cursors?.right.isDown &&
       !this.playerParamsConfig.blockMove.right.blocked &&
       !isBlocked
     ) {
@@ -206,7 +207,7 @@ export class Player {
     }
 
     ///---- Up
-    if (this.cursors.up.isDown && !isBlocked) {
+    if (this.cursors?.up.isDown && !isBlocked) {
       if (this.playerBody.body.blocked.left) {
         this.setBlockMove("left", time);
         this.playerBody.setVelocityX(Math.max(wallJumpXVelocity, oldVelocityX));

@@ -3,36 +3,36 @@
  "infinite":false,
  "layers":[
         {
-         "data":[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            2, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            2, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            2, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            2, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            2, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            2, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 21, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 21, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 21, 21, 21, 21, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+            4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
          "height":30,
          "id":1,
          "name":"level",
@@ -55,21 +55,21 @@
          "y":0
         }, 
         {
+         "color":"#ff55ff",
          "draworder":"topdown",
          "id":2,
          "name":"player",
          "objects":[
                 {
-                 "gid":81,
-                 "height":16,
-                 "id":1,
-                 "name":"",
+                 "height":32,
+                 "id":95,
+                 "name":"Player",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":16,
-                 "x":497.082706766917,
-                 "y":269.428921140059
+                 "width":32,
+                 "x":64,
+                 "y":0
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -78,14 +78,15 @@
          "y":0
         }, 
         {
+         "color":"#00ffff",
          "draworder":"topdown",
          "id":3,
          "name":"dialogs",
          "objects":[
                 {
-                 "height":416,
+                 "height":110,
                  "id":3,
-                 "name":"",
+                 "name":"dialog_trigger",
                  "properties":[
                         {
                          "name":"id",
@@ -95,9 +96,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":64,
-                 "x":-212,
-                 "y":-46
+                 "width":32,
+                 "x":-224,
+                 "y":-32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -106,99 +107,125 @@
          "y":0
         }, 
         {
+         "color":"#ff0000",
          "draworder":"topdown",
          "id":4,
          "name":"buttons",
          "objects":[
                 {
-                 "gid":84,
-                 "height":32,
-                 "id":13,
-                 "name":"",
+                 "height":26,
+                 "id":73,
+                 "name":"BUTTON",
                  "properties":[
                         {
-                         "name":"bridgetId",
-                         "type":"string",
-                         "value":"0"
+                         "name":"id",
+                         "type":"int",
+                         "value":0
                         }, 
                         {
-                         "name":"tileName",
-                         "type":"string",
-                         "value":"buttons_0"
+                         "name":"is_wall",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":64.6666666666667,
-                 "x":-160,
-                 "y":640
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":5,
-         "name":"bridges",
-         "objects":[
-                {
-                 "gid":82,
-                 "height":32,
-                 "id":19,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"bridgetId",
-                         "type":"string",
-                         "value":"0"
-                        }, 
-                        {
-                         "name":"from",
-                         "type":"string",
-                         "value":"bottom"
-                        }, 
-                        {
-                         "name":"tileName",
-                         "type":"string",
-                         "value":"bridget_0"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":-160,
-                 "y":672
+                 "width":50.6666666666667,
+                 "x":-224,
+                 "y":96
                 }, 
                 {
-                 "gid":82,
-                 "height":32,
-                 "id":56,
-                 "name":"",
+                 "height":63.8181818181818,
+                 "id":74,
+                 "name":"BUTTON",
                  "properties":[
                         {
-                         "name":"bridgetId",
-                         "type":"string",
-                         "value":"0"
+                         "name":"id",
+                         "type":"int",
+                         "value":0
                         }, 
                         {
-                         "name":"from",
-                         "type":"string",
-                         "value":"top"
-                        }, 
-                        {
-                         "name":"tileName",
-                         "type":"string",
-                         "value":"bridget_0"
+                         "name":"is_wall",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":32,
-                 "x":-128,
-                 "y":672
+                 "width":63.5757909090909,
+                 "x":224,
+                 "y":160.181818181818
+                }, 
+                {
+                 "height":63.8182,
+                 "id":86,
+                 "name":"BUTTON",
+                 "properties":[
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"is_wall",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":63.5758,
+                 "x":32,
+                 "y":288
+                }, 
+                {
+                 "height":63.8182,
+                 "id":90,
+                 "name":"BUTTON",
+                 "properties":[
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"is_wall",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":63.5758,
+                 "x":864,
+                 "y":352
+                }, 
+                {
+                 "height":96.8182,
+                 "id":93,
+                 "name":"BUTTON",
+                 "properties":[
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"invisible",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"is_wall",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":95.5758,
+                 "x":640,
+                 "y":-1
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -207,21 +234,21 @@
          "y":0
         }, 
         {
+         "color":"#ff00ff",
          "draworder":"topdown",
          "id":9,
          "name":"finish",
          "objects":[
                 {
-                 "gid":87,
                  "height":32,
-                 "id":65,
-                 "name":"",
+                 "id":91,
+                 "name":"_FINISH_",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":20,
-                 "x":384,
-                 "y":288
+                 "width":32,
+                 "x":-96,
+                 "y":-32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -230,65 +257,286 @@
          "y":0
         }, 
         {
+         "color":"#00ff00",
          "draworder":"topdown",
          "id":7,
+         "name":"bridges",
+         "objects":[
+                {
+                 "height":57.3333333333333,
+                 "id":70,
+                 "name":"BRIDGE",
+                 "properties":[
+                        {
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":-1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":57.3333333333334,
+                 "x":-160,
+                 "y":32
+                }, 
+                {
+                 "height":32,
+                 "id":75,
+                 "name":"BRIDGE",
+                 "properties":[
+                        {
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":576,
+                 "y":224
+                }, 
+                {
+                 "height":32,
+                 "id":77,
+                 "name":"BRIDGE",
+                 "properties":[
+                        {
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":608,
+                 "y":224
+                }, 
+                {
+                 "height":32,
+                 "id":78,
+                 "name":"BRIDGE",
+                 "properties":[
+                        {
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":640,
+                 "y":224
+                }, 
+                {
+                 "height":32,
+                 "id":79,
+                 "name":"BRIDGE",
+                 "properties":[
+                        {
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":672,
+                 "y":224
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "color":"#aaff00",
+         "draworder":"topdown",
+         "id":12,
          "name":"walls",
          "objects":[
                 {
-                 "gid":83,
-                 "height":32,
-                 "id":43,
-                 "name":"",
+                 "height":50,
+                 "id":80,
+                 "name":"WALL",
                  "properties":[
                         {
-                         "name":"direction",
-                         "type":"string",
-                         "value":"top"
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":false
                         }, 
                         {
-                         "name":"tileName",
-                         "type":"string",
-                         "value":"wall_0"
-                        }, 
-                        {
-                         "name":"wallId",
+                         "name":"id",
                          "type":"int",
-                         "value":0
+                         "value":-1
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":32,
+                 "width":46,
                  "x":-160,
-                 "y":480
+                 "y":-32
                 }, 
                 {
-                 "gid":83,
                  "height":32,
-                 "id":57,
-                 "name":"",
+                 "id":82,
+                 "name":"WALL",
                  "properties":[
                         {
-                         "name":"direction",
-                         "type":"string",
-                         "value":"bottom"
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":false
                         }, 
                         {
-                         "name":"tileName",
-                         "type":"string",
-                         "value":"wall_0"
-                        }, 
-                        {
-                         "name":"wallId",
+                         "name":"id",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":-128,
-                 "y":480
+                 "x":288,
+                 "y":256
+                }, 
+                {
+                 "height":32,
+                 "id":84,
+                 "name":"WALL",
+                 "properties":[
+                        {
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":288,
+                 "y":288
+                }, 
+                {
+                 "height":32,
+                 "id":85,
+                 "name":"WALL",
+                 "properties":[
+                        {
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":288,
+                 "y":320
+                }, 
+                {
+                 "height":32,
+                 "id":87,
+                 "name":"WALL",
+                 "properties":[
+                        {
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":352,
+                 "y":352
+                }, 
+                {
+                 "height":32,
+                 "id":88,
+                 "name":"WALL",
+                 "properties":[
+                        {
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":384,
+                 "y":352
+                }, 
+                {
+                 "height":32,
+                 "id":89,
+                 "name":"WALL",
+                 "properties":[
+                        {
+                         "name":"from_top",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":416,
+                 "y":352
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -298,31 +546,104 @@
         }, 
         {
          "draworder":"topdown",
-         "id":8,
-         "name":"wallButtons",
+         "id":15,
+         "name":"coins",
          "objects":[
                 {
-                 "gid":82,
+                 "gid":81,
                  "height":32,
-                 "id":48,
+                 "id":98,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"tileName",
-                         "type":"string",
-                         "value":"buttons_1"
-                        }, 
-                        {
-                         "name":"wallId",
-                         "type":"int",
-                         "value":0
-                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":64,
-                 "x":-160,
-                 "y":512
+                 "width":32,
+                 "x":128,
+                 "y":96
+                }, 
+                {
+                 "gid":81,
+                 "height":32,
+                 "id":108,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":544,
+                 "y":576
+                }, 
+                {
+                 "gid":81,
+                 "height":32,
+                 "id":109,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":416,
+                 "y":576
+                }, 
+                {
+                 "gid":81,
+                 "height":32,
+                 "id":112,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":288,
+                 "y":576
+                }, 
+                {
+                 "gid":81,
+                 "height":32,
+                 "id":121,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":416,
+                 "y":224
+                }, 
+                {
+                 "gid":81,
+                 "height":32,
+                 "id":122,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":832,
+                 "y":96
+                }, 
+                {
+                 "gid":81,
+                 "height":32,
+                 "id":123,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":704,
+                 "y":416
+                }, 
+                {
+                 "gid":81,
+                 "height":32,
+                 "id":124,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":96,
+                 "y":480
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -330,17 +651,17 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":10,
- "nextobjectid":66,
+ "nextlayerid":16,
+ "nextobjectid":125,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.2",
  "tileheight":32,
  "tilesets":[
         {
          "columns":16,
          "firstgid":1,
-         "image":"..\/platforms\/platforms32x32.png",
+         "image":"..\/platforms32x32.png",
          "imageheight":170,
          "imagewidth":530,
          "margin":1,
@@ -351,79 +672,17 @@
          "tilewidth":32
         }, 
         {
-         "columns":1,
+         "columns":10,
          "firstgid":81,
-         "image":"..\/player\/body.png",
-         "imageheight":16,
-         "imagewidth":16,
-         "margin":0,
-         "name":"player",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":16,
-         "tilewidth":16
-        }, 
-        {
-         "columns":2,
-         "firstgid":82,
-         "image":"..\/bridges\/bridget.png",
+         "image":"..\/env\/coin.png",
          "imageheight":32,
-         "imagewidth":65,
+         "imagewidth":320,
          "margin":0,
-         "name":"bridget",
-         "spacing":1,
-         "tilecount":2,
+         "name":"coin",
+         "spacing":0,
+         "tilecount":10,
          "tileheight":32,
          "tilewidth":32
-        }, 
-        {
-         "columns":1,
-         "firstgid":84,
-         "image":"..\/buttons\/buttons.png",
-         "imageheight":96,
-         "imagewidth":64,
-         "margin":0,
-         "name":"buttons",
-         "spacing":0,
-         "tilecount":3,
-         "tileheight":32,
-         "tiles":[
-                {
-                 "id":0,
-                 "type":"0"
-                }, 
-                {
-                 "id":1,
-                 "type":"1"
-                }, 
-                {
-                 "id":2,
-                 "type":"2"
-                }],
-         "tilewidth":64
-        }, 
-        {
-         "columns":0,
-         "firstgid":87,
-         "grid":
-            {
-             "height":1,
-             "orientation":"orthogonal",
-             "width":1
-            },
-         "margin":0,
-         "name":"finish",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":32,
-         "tiles":[
-                {
-                 "id":0,
-                 "image":"..\/finish.png",
-                 "imageheight":32,
-                 "imagewidth":20
-                }],
-         "tilewidth":20
         }],
  "tilewidth":32,
  "type":"map",

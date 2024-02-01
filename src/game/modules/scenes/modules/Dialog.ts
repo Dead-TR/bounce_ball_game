@@ -1,7 +1,13 @@
+import {
+  ActiveDialog,
+  DialogList,
+  DialogProperties,
+  IgnoredDialogs,
+  Tweens,
+} from "game/type";
 import { Extensions } from ".";
-import { ActiveDialog, DialogList, DialogProperties, IgnoredDialogs, settingsConfig, Tweens } from "../../game";
 import DefaultScene from "../Default";
-
+import { settingsConfig } from "game/modules/game";
 
 export class Dialog {
   scene: DefaultScene;
@@ -29,7 +35,7 @@ export class Dialog {
       .setOrigin(0, 0);
     rightBGFrame.setPosition(
       rightBGFrame.x - rightBGFrame.width,
-      rightBGFrame.y
+      rightBGFrame.y,
     );
     const { buttons } = settingsConfig.dialog;
 
@@ -37,7 +43,7 @@ export class Dialog {
       .sprite(
         sceneWidth - buttons.margin.right,
         buttons.margin.top,
-        "dialogNextButton"
+        "dialogNextButton",
       )
       .setInteractive()
       .setScrollFactor(0)
@@ -46,7 +52,7 @@ export class Dialog {
       .sprite(
         sceneWidth - buttons.margin.right,
         buttons.margin.top * 2 + buttons.height,
-        "dialogSkipButton"
+        "dialogSkipButton",
       )
       .setInteractive()
       .setScrollFactor(0)
@@ -66,7 +72,7 @@ export class Dialog {
         0,
         sceneWidth - leftBGFrame.width - rightBGFrame.width,
         rightBGFrame.height,
-        "dialogCenter"
+        "dialogCenter",
       )
       .setOrigin(0, 0);
 
@@ -101,13 +107,19 @@ export class Dialog {
     this.createDialogTriggers(scene.map);
   }
 
-  tweensPlay(tween: Phaser.Tweens.Tween, onComplete?: () => void) {
+  tweensPlay(
+    tween: Phaser.Tweens.Tween | Phaser.Tweens.Tween[],
+    onComplete?: () => void,
+  ) {
+    let current: Phaser.Tweens.Tween;
+    if (Array.isArray(tween)) current = tween[0];
+    else current = tween;
     if (onComplete) {
-      tween.once("complete", () => {
+      current.once("complete", () => {
         onComplete && onComplete();
       });
     }
-    tween.play();
+    current.play();
   }
 
   showDialog(onComplete?: () => void) {
@@ -262,7 +274,7 @@ export class Dialog {
 
       if (isSkip && (dialogId || dialogId === 0)) {
         const ignoredDialogs: IgnoredDialogs = JSON.parse(
-          localStorage.getItem("ignoredDialogs") || "[]"
+          localStorage.getItem("ignoredDialogs") || "[]",
         );
         const actualSceneIgnored = ignoredDialogs[this.sceneId] || [];
         actualSceneIgnored.push(dialogId);
@@ -288,20 +300,20 @@ export class Dialog {
       width,
       height,
       0x00ff00,
-      debug ? 0.3 : 0
+      debug ? 0.3 : 0,
     );
   }
 
   createDialogTriggers(map: Phaser.Tilemaps.Tilemap | null) {
     if (map) {
       const layer = map.getObjectLayer("dialogs");
-      const triggerObjects = layer.objects;
+      const triggerObjects = layer?.objects;
 
-      triggerObjects.forEach(
+      triggerObjects?.forEach(
         ({ x = -100, y = -100, width = 32, height = 32, properties }) => {
           const props: DialogProperties[] = properties;
           const dialogId = Number(
-            props.find((value) => value.name === "id")?.value
+            props.find((value) => value.name === "id")?.value,
           );
 
           const trigger = this.scene.add.zone(x, y, width, height).setOrigin(0);
@@ -319,7 +331,7 @@ export class Dialog {
               trigger.destroy();
             });
           }
-        }
+        },
       );
     }
   }

@@ -1,11 +1,13 @@
 import { Scene } from "phaser";
-import { PreloadTypes } from "./types";
+import { PreloadTypes } from "game/type";
 
-export function preloadData(this: Scene, data: PreloadTypes[]) {
-  data.forEach((unit) => {
-    const { method, data } = unit;
+export function preloadData(this: Scene, data: PreloadTypes) {
+  debugger;
+  Object.keys(data).forEach((key) => {
+    const method = key as keyof PreloadTypes;
+    const assets = data[method];
 
-    data.forEach((content) => {
+    assets?.forEach((content) => {
       // @ts-ignore: Unreachable code error
       const result = this.load[method](...content);
     });

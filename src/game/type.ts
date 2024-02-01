@@ -1,7 +1,10 @@
-export interface PreloadTypes {
-  method: keyof Phaser.Loader.LoaderPlugin;
-  data: any[];
-}
+export type ButtonTexture = "default" | "pushed";
+
+type Loader = Phaser.Loader.LoaderPlugin
+export type PreloadTypes = {
+  //@ts-ignore
+  [K in keyof Loader]?: Parameters<Loader[K]>[];
+};
 
 interface BlockMoveKey {
   blocked: boolean;
@@ -16,8 +19,8 @@ export interface PlayerParamsConfig {
 }
 
 export interface Tweens {
-  show: Phaser.Tweens.Tween;
-  hide: Phaser.Tweens.Tween;
+  show: Phaser.Tweens.Tween | Phaser.Tweens.Tween[];
+  hide: Phaser.Tweens.Tween | Phaser.Tweens.Tween[];
 }
 
 export interface DialogReplica {
@@ -53,20 +56,22 @@ export interface DialogProperties {
 export type TiledObjectProperties = {
   type: "string";
   name: string;
-  value: string;
+  value: string | number | boolean;
 };
 
 export interface UnpackedTiledObjectProperties {
-  [name: string]: string;
+  [name: string]: TiledObjectProperties["value"];
 }
 
-export interface BridgetButtonProps {
-  bridgetId?: string;
-  tileName?: string;
+export interface ButtonProps {
+  id?: string;
+  is_wall?: boolean;
+  invisible?: boolean;
 }
 
-export interface BridgetProps extends BridgetButtonProps {
-  from?: "bottom" | "top";
+export interface BridgetProps {
+  from_top: boolean;
+  id?: string | number;
 }
 
 export interface ObjectWithCorners {
@@ -77,21 +82,12 @@ export interface ObjectWithCorners {
   height: number;
 }
 
-export interface WallButtonProps {
-  wallId?: string;
-  tileName?: string;
-}
-
-export interface WallProps extends WallButtonProps {
-  direction?: "bottom" | "top";
-}
-
 export type LevelState = Record<
   number | string,
   {
-    wall: {
+    bridges: {
       sprite: Phaser.GameObjects.TileSprite;
-      props: WallProps;
+      props: BridgetProps;
     }[];
     body: Phaser.GameObjects.Zone;
   }

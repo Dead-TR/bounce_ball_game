@@ -1,23 +1,19 @@
-import { createGuard } from "utils";
-import {
-  BridgetProps,
-  BridgetButtonProps,
-  ObjectWithCorners,
-  settingsConfig,
-  WallButtonProps,
-  WallProps,
-  LevelState,
-} from "game/modules/game";
+import { createGuard, createTimeouts } from "utils";
+
 import DefaultScene from "../Default";
-import { Level_0 } from "game/modules/levels";
+import {
+  ButtonProps,
+  BridgetProps,
+  ButtonTexture,
+  LevelState,
+  ObjectWithCorners,
+} from "game/type";
+import { settingsConfig } from "game/modules/game";
 
 const arcadeBodyGuard = createGuard<Phaser.Physics.Arcade.Body>("setVelocity");
 const { duration, ease } = settingsConfig.bridges.animation;
 
 export class Level {
-  private scene: DefaultScene;
-  private state: LevelState = {};
-
   constructor(scene: DefaultScene) {
     this.scene = scene;
 
@@ -27,20 +23,74 @@ export class Level {
     if (map && player) {
       this.createButtons(scene, map, player);
       this.createWalls(scene, map, player);
-      this.createFinish(scene, map, player);
+      this.createCoins(scene, map, player);
+      // this.createFinish(scene, map, player);
     }
   }
+  private scene: DefaultScene;
+  private state: LevelState = {};
+  overlap = false;
 
-  createFinish(
+  private createButtons(
+    scene: DefaultScene,
+    map: Phaser.Tilemaps.Tilemap,
+    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
+  ) {
+    const bridgetButtonsLayer = map.getObjectLayer("buttons");
+    const bridgetButtonsList = bridgetButtonsLayer?.objects;
+
+    const [defaultButton, pushedButton] = scene.textures
+      .get("button")
+      .getFrameNames() as ButtonTexture[];
+
+    bridgetButtonsList?.forEach(
+      ({ x = -100, y = -100, width = -100, height = -100, properties }, i) => {
+        const props: ButtonProps =
+          scene.extensions.getPropsFromObject(properties);
+
+        const btnX = x + width / 2,
+          btnY = y + height;
+        const button = props.invisible
+          ? null
+          : scene.add
+              .sprite(btnX, btnY, "button", defaultButton)
+              .setOrigin(0.5, 1);
+
+        const buttonZone = scene.add.zone(x, y, width, height).setOrigin(0, 0);
+        scene.physics.world.enable(
+          buttonZone,
+          Phaser.Physics.Arcade.STATIC_BODY,
+        );
+
+        if (arcadeBodyGuard(buttonZone)) {
+          buttonZone.setAllowGravity(false);
+        }
+
+        scene.physics.add.overlap(player, buttonZone, () => {
+          this.overlap = true;
+          setTimeout(() => {
+            this.overlap = false;
+          }, 5);
+          button?.setTexture("button", pushedButton);
+
+          if (props.is_wall) this.activateWall(scene, map, player, props.id);
+          else this.activateBridge(scene, map, player, props.id);
+          buttonZone.destroy();
+        });
+      },
+    );
+  }
+
+  private createFinish(
     scene: DefaultScene,
     map: Phaser.Tilemaps.Tilemap,
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
   ) {
     const layer = map.getObjectLayer("finish");
-    const finishList = layer.objects;
+    const finishList = layer?.objects;
     const texture = scene.textures.get("finish").getFrameNames();
 
-    finishList.forEach(
+    finishList?.forEach(
       ({ x = -100, y = -100, width = -100, height = -100, properties }) => {
         const finish = scene.add
           .tileSprite(x, y, width, height, "buttons", texture[0])
@@ -50,158 +100,94 @@ export class Level {
           finish.body.setAllowGravity(false);
         }
 
-
-
         scene.physics.add.overlap(player, finish, () => {
           // FINISH HERE
-          // level.stop("ex_1");
-          // level.remove("ex_1");
-          // level.launch("ex_0");
-          // level.pause();
-
-          // level.remove('ex_1')
-          // level.start('ex_0');
-          // this.scene.scene.start("ex_0");
         });
       },
     );
   }
 
-  createButtons(
+  private createCoins(
     scene: DefaultScene,
     map: Phaser.Tilemaps.Tilemap,
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
   ) {
-    const bridgetButtonsLayer = map.getObjectLayer("buttons");
-    const bridgetButtonsList = bridgetButtonsLayer.objects;
+    const animation = scene.anims.create({
+      key: "coinAnimation",
+      frames: "coin",
+      frameRate: 10,
+      repeat: -1,
+    });
+    const fireworks = scene.add.particles(0, 0, "spark", {
+      frame: "spark",
+      speed: { min: 0, max: 80 },
+      angle: { min: 0, max: 360 },
+      scale: { start: 0.5, end: 0 },
+      blendMode: "ADD",
+      lifespan: 500,
+      rotate: { min: -180, max: 180 },
+      emitting: false,
+    });
 
-    const wallButtonsLayer = map.getObjectLayer("wallButtons");
-    const wallButtonsList = wallButtonsLayer.objects;
+    const coinsLayer = map.getObjectLayer("coins");
 
-    const buttonTextures = scene.textures.get("buttons").getFrameNames();
+    const coins = coinsLayer?.objects.map(({ x = 0, y = 0, width, height }) => {
+      const sprite = scene.add.sprite(x, y, "coin", 0).setOrigin(0, 1);
+      sprite.play("coinAnimation");
 
-    bridgetButtonsList.forEach(
-      ({ x = -100, y = -100, width = -100, height = -100, properties }, i) => {
-        const props: BridgetButtonProps =
-          scene.extensions.getPropsFromObject(properties);
+      this.scene.physics.world.enable(
+        sprite,
+        Phaser.Physics.Arcade.STATIC_BODY,
+      );
 
-        const button = scene.add
-          .tileSprite(
-            x,
-            y,
-            width,
-            height,
-            "buttons",
-            props.tileName || buttonTextures[0],
-          )
-          .setOrigin(0, 1);
-        scene.physics.world.enable(button);
+      scene.physics.add.overlap(player, sprite, () => {
+        this.overlap = true;
+        setTimeout(() => {
+          this.overlap = false;
+        }, 5);
 
-        if (arcadeBodyGuard(button.body)) {
-          button.body.setAllowGravity(false);
-        }
-
-        scene.physics.add.overlap(player, button, () => {
-          button.destroy();
-          this.createBridge(scene, map, player, props.bridgetId);
-        });
-      },
-    );
-
-    wallButtonsList.forEach(
-      ({ x = -100, y = -100, width = -100, height = -100, properties }, i) => {
-        const props: WallButtonProps =
-          scene.extensions.getPropsFromObject(properties);
-
-        const button = scene.add
-          .tileSprite(
-            x,
-            y,
-            width,
-            height,
-            "buttons",
-            props.tileName || buttonTextures[0],
-          )
-          .setOrigin(0, 1);
-        scene.physics.world.enable(button);
-
-        if (arcadeBodyGuard(button.body)) {
-          button.body.setAllowGravity(false);
-        }
-
-        const { height: gameHeight } = scene.game.config;
-
-        scene.physics.add.overlap(player, button, () => {
-          button.destroy();
-
-          debugger;
-
-          if (props.wallId !== undefined) {
-            const { body, wall } = this.state[props.wallId];
-
-            body.destroy();
-
-            wall.forEach(({ props, sprite }) => {
-              const y =
-                props.direction === "top"
-                  ? -(sprite.height + 100)
-                  : Number(gameHeight) + sprite.height + 100;
-
-              const animation = scene.tweens.add({
-                targets: sprite,
-                y,
-                ease,
-                duration,
-                repeat: 0,
-              });
-            });
-          }
-        });
-      },
-    );
+        const { x, y, width, height } = sprite;
+        fireworks.explode(100, x + width / 2, y - height / 2);
+        sprite.destroy();
+        // ADD +1 COIN HERE
+      });
+    });
   }
 
-  createWalls(
+  private createWalls(
     scene: DefaultScene,
     map: Phaser.Tilemaps.Tilemap,
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
   ) {
     const layer = map.getObjectLayer("walls");
-    const wallsList = layer.objects;
+    const bridgesList = layer?.objects;
     const textures = scene.textures.get("bridges").getFrameNames();
 
-    const sprites: Record<
+    const bridges: Record<
       string,
-      { sprite: Phaser.GameObjects.TileSprite; props: WallProps }[]
+      { sprite: Phaser.GameObjects.TileSprite; props: BridgetProps }[]
     > = {};
 
-    wallsList.forEach(
+    bridgesList?.forEach(
       ({ x = -100, y = -100, width = 0, height = 0, properties }, i) => {
-        const props: WallProps =
+        const props: BridgetProps =
           scene.extensions.getPropsFromObject(properties);
 
-        if (props.wallId === undefined) return;
+        if (props.id === undefined) return;
 
-        const wall = scene.add
-          .tileSprite(
-            x,
-            y,
-            width,
-            height,
-            "bridges",
-            props.tileName || textures[0],
-          )
+        const block = scene.add
+          .tileSprite(x, y + height, width, height, "bridges", textures[0])
           .setOrigin(0, 1);
 
-        if (!sprites[props.wallId]) sprites[props.wallId] = [];
+        if (!bridges[props.id]) bridges[props.id] = [];
 
-        sprites[props.wallId].push({ props, sprite: wall });
+        bridges[props.id].push({ props, sprite: block });
       },
     );
 
-    Object.entries(sprites).forEach(([id, sprites]) => {
+    Object.entries(bridges).forEach(([id, blocks]) => {
       const { x, y, rectWidth, rectHeight } = scene.extensions.findCorners(
-        sprites.map(({ sprite }) => sprite),
+        blocks.map(({ sprite }) => sprite),
       );
 
       const bridgeBody = scene.add
@@ -220,37 +206,37 @@ export class Level {
 
       this.state[id] = {
         body: bridgeBody,
-        wall: sprites,
+        bridges: blocks,
       };
     });
   }
 
-  createBridge(
+  private activateBridge(
     scene: DefaultScene,
     map: Phaser.Tilemaps.Tilemap,
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
     id?: string | number,
   ) {
-    if (!id) {
+    if (id === undefined) {
       return;
     }
+
     const layer = map.getObjectLayer("bridges");
-    const bridgesList = layer.objects;
+    const bridgesList = layer?.objects;
     const textures = scene.textures.get("bridges").getFrameNames();
 
-    const { height } = scene.game.config;
-    const gameHeight = Number(height);
-
+    const gameHeight = Number(map.heightInPixels);
     const bridgeSprites: ObjectWithCorners[] = [];
 
-    bridgesList.forEach(
+    bridgesList?.forEach(
       ({ x = -100, y = -100, width = 0, height = 0, properties }, i) => {
-        const props: BridgetProps =
-          scene.extensions.getPropsFromObject(properties);
+        const props =
+          scene.extensions.getPropsFromObject<BridgetProps>(properties);
 
-        if (props.bridgetId === id) {
-          const yFromDirection =
-            props.from === "bottom" ? -height * 2 : gameHeight + height * 2;
+        if (props.id === id) {
+          const yFromDirection = props.from_top
+            ? -height * 2
+            : gameHeight + height * 2;
 
           const bridge = scene.add
             .tileSprite(
@@ -259,9 +245,9 @@ export class Level {
               width,
               height,
               "bridges",
-              props.tileName || textures[0],
+              textures[0],
             )
-            .setOrigin(0, 1);
+            .setOrigin(0, 0);
 
           bridgeSprites.push({ ...bridge, y });
 
@@ -281,7 +267,7 @@ export class Level {
         scene.extensions.findCorners(bridgeSprites);
       const bridgeBody = scene.add
         .zone(x, y, rectWidth, rectHeight)
-        .setOrigin(0, 1);
+        .setOrigin(0, 0);
       this.scene.physics.world.enable(
         bridgeBody,
         Phaser.Physics.Arcade.STATIC_BODY,
@@ -294,5 +280,33 @@ export class Level {
 
       scene.physics.add.collider(player, bridgeBody, () => {});
     }, duration);
+  }
+  private activateWall(
+    scene: DefaultScene,
+    map: Phaser.Tilemaps.Tilemap,
+    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
+    id?: string | number,
+  ) {
+    if (!id) return;
+
+    const gameHeight = Number(map.heightInPixels);
+
+    const { body, bridges } = this.state[id];
+
+    body.destroy();
+
+    bridges.forEach(({ props, sprite }) => {
+      const y = props.from_top
+        ? -(sprite.height + 100)
+        : Number(gameHeight) + sprite.height + 100;
+
+      const animation = scene.tweens.add({
+        targets: sprite,
+        y,
+        ease,
+        duration,
+        repeat: 0,
+      });
+    });
   }
 }
