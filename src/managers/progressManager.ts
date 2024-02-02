@@ -7,7 +7,10 @@ class ProgressManager {
     this.getSavedValues();
   }
 
-  private coins = 0;
+  private state = {
+    coins: 0,
+    hp: 100,
+  };
   private emitter = new EventEmitter();
 
   private async getSavedValues() {
@@ -16,7 +19,7 @@ class ProgressManager {
         Number(JSON.parse(localStorage.getItem(saves.coinStorageAmt) || "0")) ||
         0;
 
-      if (coins) this.coins = coins;
+      if (coins) this.state.coins = coins;
     } catch (error) {}
   }
 
@@ -24,12 +27,14 @@ class ProgressManager {
   private coinsListener = (callBack: () => void) =>
     createListener(this.emitter, events.CHANGE_COIN_AMT, callBack);
   private setCoins = (v: number) => {
-    this.coins = v;
+    this.state.coins = v;
 
-    localStorage.setItem(saves.coinStorageAmt, JSON.stringify(this.coins));
-    this.emitter.emit(events.CHANGE_COIN_AMT, this.coins);
+    localStorage.setItem(
+      saves.coinStorageAmt,
+      JSON.stringify(this.state.coins),
+    );
+    this.emitter.emit(events.CHANGE_COIN_AMT, this.state.coins);
   };
-  private getCoins = () => this.coins;
 
   listeners = {
     coins: this.coinsListener,
@@ -38,11 +43,12 @@ class ProgressManager {
     coins: this.setCoins,
   } as const;
   getters = {
-    coins: this.getCoins,
+    coins: () => this.state.coins,
+    hp: () => this.state.hp,
   };
   //#endregion Listeners
   addCoin = () => {
-    this.setCoins(this.coins + 1);
+    this.setCoins(this.state.coins + 1);
   };
 }
 

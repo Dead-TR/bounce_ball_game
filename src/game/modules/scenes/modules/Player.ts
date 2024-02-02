@@ -1,11 +1,14 @@
 import { PlayerParamsConfig } from "game/type";
 import { settingsConfig } from "../../game";
 import DefaultScene from "../Default";
+import { progressManager } from "managers";
 
+const localName = "coordinates_";
 export class Player {
   cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
   playerBody!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   playerVisual!: Phaser.GameObjects.Sprite;
+  playerWhite!: Phaser.GameObjects.Sprite;
   camera!: Phaser.Cameras.Scene2D.Camera;
   playerParamsConfig: PlayerParamsConfig = {
     blockMove: {
@@ -23,6 +26,7 @@ export class Player {
     x: 0,
     y: 0,
   };
+  HP = progressManager.getters.hp();
 
   constructor(scene: DefaultScene) {
     const { world, map } = scene;
@@ -44,13 +48,19 @@ export class Player {
     const playerData = layer?.objects[0];
 
     this.playerBody = scene.physics.add
-      .sprite(playerData?.x || 0, playerData?.y || 0, "playerSprite")
+      .sprite(playerData?.x || 0, playerData?.y || 0, "playerBody")
       .setAlpha(0);
+
     this.playerVisual = scene.add.sprite(
       this.playerBody.x,
       this.playerBody.y,
-      "playerBody",
+      "playerVisual",
     );
+    this.playerWhite = scene.add
+      .sprite(this.playerBody.x, this.playerBody.y, "playerWhite")
+      .setAlpha(0)
+      .setDepth(Infinity);
+
     this.playerBody
       .setBounce(playerBounce)
       .setCircle(this.playerBody.width / 2);
@@ -61,10 +71,24 @@ export class Player {
 
     this.cursors = scene.input.keyboard?.createCursorKeys();
 
-    this.coordinates = {
-      x: this.playerBody.x || 0,
-      y: this.playerBody.y || 0,
+    const setDefaultCoordinates = () => {
+      this.coordinates = {
+        x: this.playerBody.x || 0,
+        y: this.playerBody.y || 0,
+      };
     };
+
+    try {
+      const id = scene.levelName;
+      const storeData = localStorage.getItem(`${localName}${id}`);
+      if (!storeData) setDefaultCoordinates();
+      else {
+        const coordinates = JSON.parse(storeData) as Player["coordinates"];
+        this.coordinates = coordinates;
+      }
+    } catch (error) {
+      setDefaultCoordinates();
+    }
   }
 
   createCamera(
@@ -101,13 +125,13 @@ export class Player {
     const { x: startX, y: startY } = this.coordinates;
     const { width, height } = player;
 
-    const playerSprite = scene.add.sprite(startX, startY, "playerBody");
+    const playerSprite = scene.add.sprite(startX, startY, "playerVisual");
     playerSprite.setAlpha(0.5);
     const fx = playerSprite.preFX?.addDisplacement("diplace", 1, 0.5);
     const createAnchor = scene.add.particles(0, 0, "spark", {
       speed: { min: 0, max: 100 },
       angle: { min: 0, max: 360 },
-      scale: { start: 0.5, end: 0 },
+      scale: { start: 0.7, end: 0 },
       tint: 0xff00ff,
       blendMode: "ADD",
       lifespan: 250,
@@ -149,6 +173,15 @@ export class Player {
       ease: "linear",
     });
 
+    scene.tweens.add({
+      targets: playerSprite,
+      alpha: 0.25,
+      loop: -1,
+      duration: 3500,
+      yoyo: true,
+      ease: "sine.inout",
+    });
+
     scene.input.keyboard?.on("keydown-ENTER", () => {
       this.coordinates = {
         x: player.x || 0,
@@ -158,6 +191,14 @@ export class Player {
       const { x, y } = this.coordinates;
       playerSprite.setPosition(x, y);
       createAnchor.explode(100, x, y);
+
+      try {
+        const id = scene.levelName;
+        localStorage.setItem(
+          `${localName}${id}`,
+          JSON.stringify(this.coordinates),
+        );
+      } catch (error) {}
     });
 
     scene.input.keyboard?.on("keydown-SPACE", () => {
@@ -176,6 +217,9 @@ export class Player {
     this.resetBlockMove(time);
     this.controlPlayerBody(delta);
     this.smoothMoveCameraTowards(this.playerBody, 0.9);
+
+    const { x, y } = this.playerVisual;
+    this.playerWhite.setPosition(x, y);
   }
 
   controlPlayerBody(delta: number) {

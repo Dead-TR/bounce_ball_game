@@ -25,6 +25,7 @@ export class Level {
       this.createButtons(scene, map, player);
       this.createWalls(scene, map, player);
       this.createCoins(scene, map, player);
+      this.createTraps(scene, map, player);
       // this.createFinish(scene, map, player);
     }
   }
@@ -151,7 +152,7 @@ export class Level {
         fireworks.explode(100, x + width / 2, y - height / 2);
         sprite.destroy();
         // ADD +1 COIN HERE
-        progressManager.addCoin()
+        progressManager.addCoin();
       });
     });
   }
@@ -308,6 +309,49 @@ export class Level {
         ease,
         duration,
         repeat: 0,
+      });
+    });
+  }
+
+  private invincible = false;
+  private createTraps(
+    scene: DefaultScene,
+    map: Phaser.Tilemaps.Tilemap,
+    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
+  ) {
+    const layer = map.getObjectLayer("traps");
+    const traps = layer?.objects;
+
+    traps?.forEach(({ x = -100, y = -100, width = 0, height = 0 }) => {
+      const trap = scene.add.zone(x, y, width, height).setOrigin(0, 0);
+      scene.physics.world.enable(trap, Phaser.Physics.Arcade.STATIC_BODY);
+
+      scene.physics.add.overlap(player, trap, () => {
+        player.setAlpha(0);
+        if (!this.invincible) {
+          this.invincible = true;
+          const playerModule = scene.player;
+          const white = scene.player?.playerWhite;
+          if (!white || !playerModule) return;
+
+          playerModule.HP -= 10;
+
+          if (playerModule.HP <= 0) {
+            scene.dead()
+          }
+
+          white.setAlpha(1);
+          let i = 0;
+          const id = setInterval(() => {
+            const alpha = white.alpha === 1 ? 0 : 1;
+            white.setAlpha(alpha);
+            i++;
+            if (i >= 5) {
+              clearTimeout(id);
+              this.invincible = false;
+            }
+          }, 100);
+        }
       });
     });
   }

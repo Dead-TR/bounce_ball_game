@@ -1,1 +1,1 @@
-export * from "./coinManager";
+export * from "./progressManager";

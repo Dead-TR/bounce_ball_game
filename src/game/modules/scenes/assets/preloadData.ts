@@ -5,11 +5,18 @@ export const assets = "assets/";
 
 const { tal } = storyConfig.characters;
 
+export const tileSets = ["platforms32x32"];
+
 export const gameResourcesData: PreloadTypes = {
   image: [
-    ["platforms32x32", assets + "platforms32x32.png"],
-    ["playerSprite", assets + "body.png"],
-    ["playerBody", assets + "ball.png"],
+    ...(tileSets.map((name) => [
+      name,
+      `${assets}/levelTiles/${name}.png`,
+    ]) as any),
+    ["playerBody", assets + "player/body.png"],
+    ["playerVisual", assets + "player/ball.png"],
+    ["playerWhite", assets + "player/ball_white.png"],
+
     ["spark", assets + "env/spark.png"],
     ["diplace", assets + "noise.png"],
 
@@ -30,7 +37,6 @@ export const gameResourcesData: PreloadTypes = {
     ],
   ],
   atlas: [
-    ["teleport", assets + "teleport.png", assets + "teleport_atlas.json"],
     ["buttons", assets + "buttons.png", assets + "buttons.json"],
     ["bridges", assets + "bridget.png", assets + "bridget.json"],
     ["button", assets + "env/button.png", assets + "env/button.json"],
