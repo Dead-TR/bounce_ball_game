@@ -60,6 +60,11 @@ export class Player {
     world.setCollisionByExclusion([-1], true);
 
     this.cursors = scene.input.keyboard?.createCursorKeys();
+
+    this.coordinates = {
+      x: this.playerBody.x || 0,
+      y: this.playerBody.y || 0,
+    };
   }
 
   createCamera(
@@ -93,17 +98,66 @@ export class Player {
     scene: DefaultScene,
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
   ) {
-    scene.anims.create({
-      key: "teleportAnimation",
-      frames: "teleport",
-      frameRate: 20,
-      repeat: 0,
+    const { x: startX, y: startY } = this.coordinates;
+    const { width, height } = player;
+
+    const playerSprite = scene.add.sprite(startX, startY, "playerBody");
+    playerSprite.setAlpha(0.5);
+    const fx = playerSprite.preFX?.addDisplacement("diplace", 1, 0.5);
+    const createAnchor = scene.add.particles(0, 0, "spark", {
+      speed: { min: 0, max: 100 },
+      angle: { min: 0, max: 360 },
+      scale: { start: 0.5, end: 0 },
+      tint: 0xff00ff,
+      blendMode: "ADD",
+      lifespan: 250,
+      rotate: { min: -180, max: 180 },
+      emitting: false,
     });
+
+    const createTeleport = scene.add.particles(0, 0, "spark", {
+      speed: { min: 0, max: 250 },
+      angle: { min: 0, max: 360 },
+      scale: { start: 1.5, end: 0 },
+      alpha: {
+        start: 1,
+        end: 0,
+        ease: Phaser.Math.Easing.Quadratic.InOut,
+      },
+      tint: 0x008489,
+      blendMode: "ADD",
+      lifespan: 400,
+      rotate: { min: -180, max: 180 },
+      emitting: false,
+    });
+
+    scene.tweens.add({
+      targets: fx,
+      x: -1,
+      y: 0.25,
+      yoyo: true,
+      loop: -1,
+      duration: 5000,
+      ease: "sine.inout",
+    });
+
+    scene.tweens.add({
+      targets: playerSprite,
+      angle: -360,
+      loop: -1,
+      duration: 2000,
+      ease: "linear",
+    });
+
     scene.input.keyboard?.on("keydown-ENTER", () => {
       this.coordinates = {
         x: player.x || 0,
         y: player.y || 0,
       };
+
+      const { x, y } = this.coordinates;
+      playerSprite.setPosition(x, y);
+      createAnchor.explode(100, x, y);
     });
 
     scene.input.keyboard?.on("keydown-SPACE", () => {
@@ -113,12 +167,7 @@ export class Player {
         player.y = y;
       }
 
-      const sprite = scene.add
-        .sprite(x, y, "teleport")
-        .play("teleportAnimation")
-        .on("complete", () => {
-          sprite.destroy();
-        });
+      createTeleport.explode(300, x, y);
     });
   }
 

@@ -11,6 +11,7 @@ export const gameResourcesData: PreloadTypes = {
     ["playerSprite", assets + "body.png"],
     ["playerBody", assets + "ball.png"],
     ["spark", assets + "env/spark.png"],
+    ["diplace", assets + "noise.png"],
 
     ["dialogCenter", assets + "ui/dialog-2.png"],
     ["dialogLeft", assets + "ui/dialog-1.png"],

@@ -9,6 +9,7 @@ import {
   ObjectWithCorners,
 } from "game/type";
 import { settingsConfig } from "game/modules/game";
+import { progressManager } from "managers";
 
 const arcadeBodyGuard = createGuard<Phaser.Physics.Arcade.Body>("setVelocity");
 const { duration, ease } = settingsConfig.bridges.animation;
@@ -112,17 +113,17 @@ export class Level {
     map: Phaser.Tilemaps.Tilemap,
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
   ) {
-    const animation = scene.anims.create({
+    scene.anims.create({
       key: "coinAnimation",
       frames: "coin",
       frameRate: 10,
       repeat: -1,
     });
     const fireworks = scene.add.particles(0, 0, "spark", {
-      frame: "spark",
       speed: { min: 0, max: 80 },
       angle: { min: 0, max: 360 },
       scale: { start: 0.5, end: 0 },
+      alpha: { start: 0, end: 1 },
       blendMode: "ADD",
       lifespan: 500,
       rotate: { min: -180, max: 180 },
@@ -150,6 +151,7 @@ export class Level {
         fireworks.explode(100, x + width / 2, y - height / 2);
         sprite.destroy();
         // ADD +1 COIN HERE
+        progressManager.addCoin()
       });
     });
   }

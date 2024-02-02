@@ -2,7 +2,7 @@ import { settingsConfig } from "../game/settingsConfig";
 import { Level } from "../levels";
 
 export const config: Phaser.Types.Core.GameConfig = {
-  type: Phaser.CANVAS,
+  type: Phaser.AUTO,
   parent: "game-box",
   height: 720,
   width: 1280,
