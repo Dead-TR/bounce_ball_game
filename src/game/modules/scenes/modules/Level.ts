@@ -7,6 +7,7 @@ import {
   ButtonTexture,
   LevelState,
   ObjectWithCorners,
+  FinishProps,
 } from "game/type";
 import { settingsConfig } from "game/modules/game";
 import { progressManager } from "managers";
@@ -26,7 +27,7 @@ export class Level {
       this.createWalls(scene, map, player);
       this.createCoins(scene, map, player);
       this.createTraps(scene, map, player);
-      // this.createFinish(scene, map, player);
+      this.createFinish(scene, map, player);
     }
   }
   private scene: DefaultScene;
@@ -100,6 +101,9 @@ export class Level {
 
     finishList?.forEach(
       ({ x = -100, y = -100, width = -100, height = -100, properties }) => {
+        const props: FinishProps =
+          scene.extensions.getPropsFromObject(properties);
+
         const finish = scene.add
           .tileSprite(x, y, width, height, "buttons", texture[0])
           .setOrigin(0, 1);
@@ -110,6 +114,8 @@ export class Level {
 
         scene.physics.add.overlap(player, finish, () => {
           // FINISH HERE
+          const nextLevelId = props.nextLevelId;
+          console.log("🚀 ~ ~ nextLevelId:", nextLevelId)
         });
       },
     );

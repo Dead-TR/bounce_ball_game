@@ -94,3 +94,7 @@ export type LevelState = Record<
     body: Phaser.GameObjects.Zone;
   }
 >;
+
+export interface FinishProps {
+  nextLevelId: string;
+}
