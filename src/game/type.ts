@@ -1,6 +1,6 @@
 export type ButtonTexture = "default" | "pushed";
 
-type Loader = Phaser.Loader.LoaderPlugin
+type Loader = Phaser.Loader.LoaderPlugin;
 export type PreloadTypes = {
   //@ts-ignore
   [K in keyof Loader]?: Parameters<Loader[K]>[];
@@ -67,6 +67,8 @@ export interface ButtonProps {
   id?: string;
   is_wall?: boolean;
   invisible?: boolean;
+
+  key?: string;
 }
 
 export interface BridgetProps {

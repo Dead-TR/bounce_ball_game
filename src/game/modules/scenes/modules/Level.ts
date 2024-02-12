@@ -69,6 +69,12 @@ export class Level {
         }
 
         scene.physics.add.overlap(player, buttonZone, () => {
+          const currentKey = props.key;
+          const foundKey = progressManager.getters
+            .keys()
+            .find((key) => key === currentKey);
+          if (currentKey && !foundKey) return;
+
           this.overlap = true;
           setTimeout(() => {
             this.overlap = false;
@@ -337,7 +343,7 @@ export class Level {
           playerModule.HP -= 10;
 
           if (playerModule.HP <= 0) {
-            scene.dead()
+            scene.dead();
           }
 
           white.setAlpha(1);
