@@ -1,12 +1,16 @@
-import css from "./style.module.css";
+import { BrowserRouter } from "react-router-dom";
+import { Greeting, Main } from "components";
 
-import { Game } from "../../game";
+import css from "./style.module.css";
 
 function App() {
   return (
-    <div className={css.root}>
-      <Game />
-    </div>
+    <BrowserRouter>
+      <div className={css.root}>
+        <Greeting />
+        <Main />
+      </div>
+    </BrowserRouter>
   );
 }
 
