@@ -1,7 +1,7 @@
 import DefaultScene from "../scenes/Default";
 
-export class Level_0 extends DefaultScene {
+export class Level_1 extends DefaultScene {
   constructor() {
-    super("ex_0");
+    super("ex_1");
   }
 }

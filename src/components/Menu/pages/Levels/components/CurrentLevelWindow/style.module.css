@@ -1,0 +1,83 @@
+.root {
+  position: relative;
+  max-width: 300px;
+  width: 100%;
+  border: 3px solid #acacac;
+  background: #898989;
+  min-height: 100px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.95);
+}
+
+.header {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.headerContent {
+  background: #898989;
+  position: absolute;
+  width: 80%;
+  top: -40px;
+
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.levelName {
+  font-size: 32px;
+  font-weight: 600;
+  color: white;
+  width: 100%;
+  text-align: center;
+  display: block;
+
+  text-shadow: #000000 0px 2px 5px;
+}
+
+.close {
+  background: #b11b1e;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+
+  position: absolute;
+  right: -20px;
+  top: -20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.menu {
+  width: 100%;
+  margin: 25px 0 10px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.playBtn {
+  margin: 0 auto;
+}
+.playIcon {
+  width: 100px;
+  height: auto;
+}
+
+.top {
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  text-shadow: #000000 0px 1px 2px;
+}

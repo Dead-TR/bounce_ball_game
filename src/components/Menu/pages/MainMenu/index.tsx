@@ -3,8 +3,8 @@ import React, { FC } from "react";
 import { BG } from "components";
 import { usePath } from "providers";
 
-import Play from "../../assets/play.svg";
-import Shop from "../../assets/shop.svg";
+import Play from "assets/play.svg";
+import Shop from "assets/shop.svg";
 
 import css from "./style.module.css";
 
@@ -23,7 +23,7 @@ export const MainMenu: FC<Props> = ({}) => {
               <img src={Shop} alt={"Shop"} />
             </button>
 
-            <button onClick={() => page.to("levels")}>
+            <button onClick={() => page.to("play")}>
               <img src={Play} alt={"Play"} />
             </button>
           </div>

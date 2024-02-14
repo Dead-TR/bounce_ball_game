@@ -10,7 +10,7 @@ export const routes = {
       component: MainMenu,
     },
   }),
-  levels: setGame({
+  play: setGame({
     data: {
       component: Levels,
     },

@@ -5,4 +5,3 @@ export * from "./scenes/Default";
 export * from "./scenes/modules";
 export * from "./scenes/assets/dialogs";
 export * from "./scenes/assets/preloadData";
-export * from "./service/config";
