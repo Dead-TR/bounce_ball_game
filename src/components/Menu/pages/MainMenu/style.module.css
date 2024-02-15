@@ -15,6 +15,12 @@
   height: 50px;
   right: 0;
   top: 0;
+  padding: 10px;
+}
+.coins {
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
 }
 
 .center {
@@ -32,8 +38,6 @@
 
   width: fit-content;
 }
-
-
 
 .right {
 }
