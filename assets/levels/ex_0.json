@@ -320,21 +320,21 @@
                  "y":-32
                 }, 
                 {
-                 "height":32,
+                 "height":95,
                  "id":135,
                  "name":"_FINISH_",
                  "properties":[
                         {
                          "name":"nextLevelId",
                          "type":"string",
-                         "value":"empty"
+                         "value":"1"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":896,
-                 "y":896
+                 "x":576,
+                 "y":161
                 }],
          "opacity":1,
          "type":"objectgroup",
