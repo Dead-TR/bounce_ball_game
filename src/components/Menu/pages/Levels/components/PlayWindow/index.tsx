@@ -7,6 +7,7 @@ interface Props {
   level: MenuLevelState;
 }
 
+
 export const PlayWindow: FC<Props> = ({ level }) => {
   useLayoutEffect(() => {
     const { level: LevelScene } = level;

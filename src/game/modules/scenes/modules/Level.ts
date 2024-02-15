@@ -115,7 +115,7 @@ export class Level {
         scene.physics.add.overlap(player, finish, () => {
           // FINISH HERE
           const nextLevelId = props.nextLevelId;
-          console.log("🚀 ~ ~ nextLevelId:", nextLevelId)
+          progressManager.setters.onFinish(nextLevelId);
         });
       },
     );

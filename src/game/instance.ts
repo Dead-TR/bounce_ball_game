@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 
+import { OnFinishState } from "./modules/levels/type";
 import DefaultScene from "./modules/scenes/Default";
 import { settingsConfig } from "./modules";
 
@@ -23,10 +24,14 @@ const phaserConfig: Phaser.Types.Core.GameConfig = {
   roundPixels: true,
 };
 
-export const createGame = (level: typeof DefaultScene) => {
+export const createGame = (
+  level: typeof DefaultScene,
+) => {
+
   const config = {
     ...phaserConfig,
     scene: level,
   };
+
   return new Phaser.Game(config);
 };

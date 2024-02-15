@@ -66,15 +66,25 @@ class ProgressManager {
     this.emitter.emit(events.CHANGE_KEYS, this.state.keys);
   };
 
+  private onFinishListener = (callBack: (nextLevelId: string) => void) =>
+    createListener(this.emitter, events.ON_FINISH, callBack);
+  private onFinishSetter = (nextLevelId: string) => {
+    this.emitter.emit(events.ON_FINISH, nextLevelId);
+  };
+
   listeners = {
     coins: this.coinsListener,
     keys: this.keysListener,
     hp: this.hpListener,
+
+    onFinish: this.onFinishListener,
   } as const;
   setters = {
     coins: this.setCoins,
     keys: this.setKey,
     hp: this.setHP,
+
+    onFinish: this.onFinishSetter,
   } as const;
   getters = {
     coins: () => this.state.coins,

@@ -121,8 +121,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":416,
-                 "y":128
+                 "x":1312,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -327,14 +327,14 @@
                         {
                          "name":"nextLevelId",
                          "type":"string",
-                         "value":"1"
+                         "value":"4"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":576,
-                 "y":161
+                 "x":1440,
+                 "y":352
                 }],
          "opacity":1,
          "type":"objectgroup",
