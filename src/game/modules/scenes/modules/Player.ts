@@ -8,7 +8,7 @@ export class Player {
   cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
   playerBody!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   playerVisual!: Phaser.GameObjects.Sprite;
-  playerWhite!: Phaser.GameObjects.Sprite;
+  playerWhite!: Phaser.GameObjects.Arc;
   camera!: Phaser.Cameras.Scene2D.Camera;
   playerParamsConfig: PlayerParamsConfig = {
     blockMove: {
@@ -48,7 +48,7 @@ export class Player {
     const playerData = layer?.objects[0];
 
     this.playerBody = scene.physics.add
-      .sprite(playerData?.x || 0, playerData?.y || 0, "playerBody")
+      .sprite(playerData?.x || 0, playerData?.y || 0, "playerVisual")
       .setAlpha(0);
 
     this.playerVisual = scene.add.sprite(
@@ -57,7 +57,13 @@ export class Player {
       "playerVisual",
     );
     this.playerWhite = scene.add
-      .sprite(this.playerBody.x, this.playerBody.y, "playerWhite")
+      .circle(
+        this.playerBody.x,
+        this.playerBody.y,
+        this.playerBody.width / 2,
+        0xffffff,
+        1,
+      )
       .setAlpha(0)
       .setDepth(Infinity);
 
@@ -218,7 +224,7 @@ export class Player {
     this.controlPlayerBody(delta);
     this.smoothMoveCameraTowards(this.playerBody, 0.9);
 
-    const { x, y } = this.playerVisual;
+    const { x, y } = this.playerBody;
     this.playerWhite.setPosition(x, y);
   }
 

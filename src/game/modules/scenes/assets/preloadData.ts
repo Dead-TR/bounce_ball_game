@@ -13,7 +13,6 @@ export const gameResourcesData: PreloadTypes = {
       name,
       `${assets}/levelTiles/${name}.png`,
     ]) as any),
-    ["playerBody", assets + "player/body.png"],
     ["playerVisual", assets + "player/ball.png"],
     ["playerWhite", assets + "player/ball_white.png"],
 
